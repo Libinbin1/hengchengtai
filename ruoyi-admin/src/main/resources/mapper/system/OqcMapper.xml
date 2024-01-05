@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OqcMapper">
+    
+    <resultMap type="Oqc" id="OqcResult">
+        <result property="id"    column="id"    />
+        <result property="oqcNumb"    column="oqc_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="saleoutbId"    column="saleoutb_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="unquQuan"    column="unqu_quan"    />
+        <result property="passRate"    column="pass_rate"    />
+        <result property="procResu"    column="proc_resu"    />
+        <result property="productId"    column="product_id"    />
+        <result property="quanOutb"    column="quan_outb"    />
+        <result property="inspQuan"    column="insp_quan"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectOqcVo">
+        select id, oqc_numb, pers, date, saleoutb_id, remark, unqu_quan, pass_rate, proc_resu, product_id, quan_outb, insp_quan, json from oqc
+    </sql>
+
+    <select id="selectOqcList" parameterType="Oqc" resultMap="OqcResult">
+        <include refid="selectOqcVo"/>
+        <where>  
+            <if test="oqcNumb != null  and oqcNumb != ''"> and oqc_numb = #{oqcNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="saleoutbId != null "> and saleoutb_id = #{saleoutbId}</if>
+            <if test="unquQuan != null  and unquQuan != ''"> and unqu_quan = #{unquQuan}</if>
+            <if test="passRate != null  and passRate != ''"> and pass_rate = #{passRate}</if>
+            <if test="procResu != null  and procResu != ''"> and proc_resu = #{procResu}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="quanOutb != null  and quanOutb != ''"> and quan_outb = #{quanOutb}</if>
+            <if test="inspQuan != null  and inspQuan != ''"> and insp_quan = #{inspQuan}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectOqcById" parameterType="Long" resultMap="OqcResult">
+        <include refid="selectOqcVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertOqc" parameterType="Oqc">
+        insert into oqc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="oqcNumb != null">oqc_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="saleoutbId != null">saleoutb_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="unquQuan != null">unqu_quan,</if>
+            <if test="passRate != null">pass_rate,</if>
+            <if test="procResu != null">proc_resu,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="quanOutb != null">quan_outb,</if>
+            <if test="inspQuan != null">insp_quan,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="oqcNumb != null">#{oqcNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="saleoutbId != null">#{saleoutbId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="unquQuan != null">#{unquQuan},</if>
+            <if test="passRate != null">#{passRate},</if>
+            <if test="procResu != null">#{procResu},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="quanOutb != null">#{quanOutb},</if>
+            <if test="inspQuan != null">#{inspQuan},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOqc" parameterType="Oqc">
+        update oqc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="oqcNumb != null">oqc_numb = #{oqcNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="saleoutbId != null">saleoutb_id = #{saleoutbId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="unquQuan != null">unqu_quan = #{unquQuan},</if>
+            <if test="passRate != null">pass_rate = #{passRate},</if>
+            <if test="procResu != null">proc_resu = #{procResu},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="quanOutb != null">quan_outb = #{quanOutb},</if>
+            <if test="inspQuan != null">insp_quan = #{inspQuan},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOqcById" parameterType="Long">
+        delete from oqc where id = #{id}
+    </delete>
+
+    <delete id="deleteOqcByIds" parameterType="String">
+        delete from oqc where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RequInvoMapper">
+    
+    <resultMap type="RequInvo" id="RequInvoResult">
+        <result property="id"    column="id"    />
+        <result property="requNumb"    column="requ_numb"    />
+        <result property="date"    column="date"    />
+        <result property="cust"    column="cust"    />
+        <result property="custMana"    column="cust_mana"    />
+        <result property="contId"    column="cont_id"    />
+        <result property="contAmou"    column="cont_amou"    />
+        <result property="invoAmou"    column="invo_amou"    />
+        <result property="uninAmou"    column="unin_amou"    />
+        <result property="requAmou"    column="requ_amou"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectRequInvoVo">
+        select id, requ_numb, date, cust, cust_mana, cont_id, cont_amou, invo_amou, unin_amou, requ_amou, json from requ_invo
+    </sql>
+
+    <select id="selectRequInvoList" parameterType="RequInvo" resultMap="RequInvoResult">
+        <include refid="selectRequInvoVo"/>
+        <where>  
+            <if test="requNumb != null  and requNumb != ''"> and requ_numb = #{requNumb}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="cust != null  and cust != ''"> and cust = #{cust}</if>
+            <if test="custMana != null  and custMana != ''"> and cust_mana = #{custMana}</if>
+            <if test="contId != null "> and cont_id = #{contId}</if>
+            <if test="contAmou != null  and contAmou != ''"> and cont_amou = #{contAmou}</if>
+            <if test="invoAmou != null  and invoAmou != ''"> and invo_amou = #{invoAmou}</if>
+            <if test="uninAmou != null  and uninAmou != ''"> and unin_amou = #{uninAmou}</if>
+            <if test="requAmou != null  and requAmou != ''"> and requ_amou = #{requAmou}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectRequInvoById" parameterType="Long" resultMap="RequInvoResult">
+        <include refid="selectRequInvoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertRequInvo" parameterType="RequInvo">
+        insert into requ_invo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="requNumb != null">requ_numb,</if>
+            <if test="date != null">date,</if>
+            <if test="cust != null">cust,</if>
+            <if test="custMana != null">cust_mana,</if>
+            <if test="contId != null">cont_id,</if>
+            <if test="contAmou != null">cont_amou,</if>
+            <if test="invoAmou != null">invo_amou,</if>
+            <if test="uninAmou != null">unin_amou,</if>
+            <if test="requAmou != null">requ_amou,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="requNumb != null">#{requNumb},</if>
+            <if test="date != null">#{date},</if>
+            <if test="cust != null">#{cust},</if>
+            <if test="custMana != null">#{custMana},</if>
+            <if test="contId != null">#{contId},</if>
+            <if test="contAmou != null">#{contAmou},</if>
+            <if test="invoAmou != null">#{invoAmou},</if>
+            <if test="uninAmou != null">#{uninAmou},</if>
+            <if test="requAmou != null">#{requAmou},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRequInvo" parameterType="RequInvo">
+        update requ_invo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="requNumb != null">requ_numb = #{requNumb},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="cust != null">cust = #{cust},</if>
+            <if test="custMana != null">cust_mana = #{custMana},</if>
+            <if test="contId != null">cont_id = #{contId},</if>
+            <if test="contAmou != null">cont_amou = #{contAmou},</if>
+            <if test="invoAmou != null">invo_amou = #{invoAmou},</if>
+            <if test="uninAmou != null">unin_amou = #{uninAmou},</if>
+            <if test="requAmou != null">requ_amou = #{requAmou},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRequInvoById" parameterType="Long">
+        delete from requ_invo where id = #{id}
+    </delete>
+
+    <delete id="deleteRequInvoByIds" parameterType="String">
+        delete from requ_invo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

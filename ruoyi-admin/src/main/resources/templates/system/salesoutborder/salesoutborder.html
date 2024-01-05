@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('销售出库列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>出库单号：</label>
+                                <input type="text" name="deliNumb"/>
+                            </li>
+                            <li>
+                                <label>出库日期：</label>
+                                <input type="text" name="deliDate"/>
+                            </li>
+                            <li>
+                                <label>出库人员：</label>
+                                <input type="text" name="deliPers"/>
+                            </li>
+                            <li>
+                                <label>关联销售订单：</label>
+                                <input type="text" name="saleorder"/>
+                            </li>
+                            <li>
+                                <label>客户名称id：</label>
+                                <input type="text" name="custId"/>
+                            </li>
+                            <li>
+                                <label>业务员id：</label>
+                                <input type="text" name="staffId"/>
+                            </li>
+                            <li>
+                                <label>出库总数量：</label>
+                                <input type="text" name="totaloutbQuan"/>
+                            </li>
+                            <li>
+                                <label>发货总金额：</label>
+                                <input type="text" name="totalshipAmou"/>
+                            </li>
+                            <li>
+                                <label>是否允许超订单出库：</label>
+                                <input type="text" name="allowoverOrder"/>
+                            </li>
+                            <li>
+                                <label>是否允许超库存出库：</label>
+                                <input type="text" name="allowoverStock"/>
+                            </li>
+                            <li>
+                                <label>超订单出库校验：</label>
+                                <input type="text" name="overorderoutbVeri"/>
+                            </li>
+                            <li>
+                                <label>库存校验：</label>
+                                <input type="text" name="stockCheck"/>
+                            </li>
+                            <li>
+                                <label>：</label>
+                                <input type="text" name="json"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:salesoutborder:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:salesoutborder:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:salesoutborder:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:salesoutborder:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:salesoutborder:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:salesoutborder:remove')}]];
+        var prefix = ctx + "system/salesoutborder";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "销售出库",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'deliNumb',
+                    title: '出库单号'
+                },
+                {
+                    field: 'deliDate',
+                    title: '出库日期'
+                },
+                {
+                    field: 'deliPers',
+                    title: '出库人员'
+                },
+                {
+                    field: 'saleorder',
+                    title: '关联销售订单'
+                },
+                {
+                    field: 'custId',
+                    title: '客户名称id'
+                },
+                {
+                    field: 'staffId',
+                    title: '业务员id'
+                },
+                {
+                    field: 'totaloutbQuan',
+                    title: '出库总数量'
+                },
+                {
+                    field: 'totalshipAmou',
+                    title: '发货总金额'
+                },
+                {
+                    field: 'remark',
+                    title: '备注'
+                },
+                {
+                    field: 'products',
+                    title: '子表关联产品信息'
+                },
+                {
+                    field: 'allowoverOrder',
+                    title: '是否允许超订单出库'
+                },
+                {
+                    field: 'allowoverStock',
+                    title: '是否允许超库存出库'
+                },
+                {
+                    field: 'overorderoutbVeri',
+                    title: '超订单出库校验'
+                },
+                {
+                    field: 'stockCheck',
+                    title: '库存校验'
+                },
+                {
+                    field: 'json',
+                    title: ''
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WarehourseInfoMapper">
+    
+    <resultMap type="WarehourseInfo" id="WarehourseInfoResult">
+        <result property="id"    column="id"    />
+        <result property="warehousename"    column="warehousename"    />
+        <result property="code"    column="code"    />
+        <result property="remark"    column="remark"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectWarehourseInfoVo">
+        select id, warehousename, code, remark, json from warehourse_info
+    </sql>
+
+    <select id="selectWarehourseInfoList" parameterType="WarehourseInfo" resultMap="WarehourseInfoResult">
+        <include refid="selectWarehourseInfoVo"/>
+        <where>  
+            <if test="warehousename != null  and warehousename != ''"> and warehousename like concat('%', #{warehousename}, '%')</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectWarehourseInfoById" parameterType="Long" resultMap="WarehourseInfoResult">
+        <include refid="selectWarehourseInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWarehourseInfo" parameterType="WarehourseInfo">
+        insert into warehourse_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="warehousename != null">warehousename,</if>
+            <if test="code != null">code,</if>
+            <if test="remark != null">remark,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="warehousename != null">#{warehousename},</if>
+            <if test="code != null">#{code},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWarehourseInfo" parameterType="WarehourseInfo">
+        update warehourse_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="warehousename != null">warehousename = #{warehousename},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWarehourseInfoById" parameterType="Long">
+        delete from warehourse_info where id = #{id}
+    </delete>
+
+    <delete id="deleteWarehourseInfoByIds" parameterType="String">
+        delete from warehourse_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

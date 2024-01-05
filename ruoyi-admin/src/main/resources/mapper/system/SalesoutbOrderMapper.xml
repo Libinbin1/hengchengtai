@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SalesoutbOrderMapper">
+    
+    <resultMap type="SalesoutbOrder" id="SalesoutbOrderResult">
+        <result property="id"    column="id"    />
+        <result property="deliNumb"    column="deli_numb"    />
+        <result property="deliDate"    column="deli_date"    />
+        <result property="deliPers"    column="deli_pers"    />
+        <result property="saleorder"    column="saleorder"    />
+        <result property="custId"    column="cust_id"    />
+        <result property="staffId"    column="staff_id"    />
+        <result property="totaloutbQuan"    column="totaloutb_quan"    />
+        <result property="totalshipAmou"    column="totalship_amou"    />
+        <result property="remark"    column="remark"    />
+        <result property="products"    column="products"    />
+        <result property="allowoverOrder"    column="allowover_order"    />
+        <result property="allowoverStock"    column="allowover_stock"    />
+        <result property="overorderoutbVeri"    column="overorderoutb_veri"    />
+        <result property="stockCheck"    column="stock_check"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectSalesoutbOrderVo">
+        select id, deli_numb, deli_date, deli_pers, saleorder, cust_id, staff_id, totaloutb_quan, totalship_amou, remark, products, allowover_order, allowover_stock, overorderoutb_veri, stock_check, json from salesoutb_order
+    </sql>
+
+    <select id="selectSalesoutbOrderList" parameterType="SalesoutbOrder" resultMap="SalesoutbOrderResult">
+        <include refid="selectSalesoutbOrderVo"/>
+        <where>  
+            <if test="deliNumb != null  and deliNumb != ''"> and deli_numb = #{deliNumb}</if>
+            <if test="deliDate != null  and deliDate != ''"> and deli_date = #{deliDate}</if>
+            <if test="deliPers != null  and deliPers != ''"> and deli_pers = #{deliPers}</if>
+            <if test="saleorder != null  and saleorder != ''"> and saleorder = #{saleorder}</if>
+            <if test="custId != null "> and cust_id = #{custId}</if>
+            <if test="staffId != null "> and staff_id = #{staffId}</if>
+            <if test="totaloutbQuan != null  and totaloutbQuan != ''"> and totaloutb_quan = #{totaloutbQuan}</if>
+            <if test="totalshipAmou != null  and totalshipAmou != ''"> and totalship_amou = #{totalshipAmou}</if>
+            <if test="products != null  and products != ''"> and products = #{products}</if>
+            <if test="allowoverOrder != null "> and allowover_order = #{allowoverOrder}</if>
+            <if test="allowoverStock != null  and allowoverStock != ''"> and allowover_stock = #{allowoverStock}</if>
+            <if test="overorderoutbVeri != null  and overorderoutbVeri != ''"> and overorderoutb_veri = #{overorderoutbVeri}</if>
+            <if test="stockCheck != null  and stockCheck != ''"> and stock_check = #{stockCheck}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectSalesoutbOrderById" parameterType="Long" resultMap="SalesoutbOrderResult">
+        <include refid="selectSalesoutbOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSalesoutbOrder" parameterType="SalesoutbOrder">
+        insert into salesoutb_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="deliNumb != null">deli_numb,</if>
+            <if test="deliDate != null">deli_date,</if>
+            <if test="deliPers != null">deli_pers,</if>
+            <if test="saleorder != null">saleorder,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="staffId != null">staff_id,</if>
+            <if test="totaloutbQuan != null">totaloutb_quan,</if>
+            <if test="totalshipAmou != null">totalship_amou,</if>
+            <if test="remark != null">remark,</if>
+            <if test="products != null">products,</if>
+            <if test="allowoverOrder != null">allowover_order,</if>
+            <if test="allowoverStock != null">allowover_stock,</if>
+            <if test="overorderoutbVeri != null">overorderoutb_veri,</if>
+            <if test="stockCheck != null">stock_check,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="deliNumb != null">#{deliNumb},</if>
+            <if test="deliDate != null">#{deliDate},</if>
+            <if test="deliPers != null">#{deliPers},</if>
+            <if test="saleorder != null">#{saleorder},</if>
+            <if test="custId != null">#{custId},</if>
+            <if test="staffId != null">#{staffId},</if>
+            <if test="totaloutbQuan != null">#{totaloutbQuan},</if>
+            <if test="totalshipAmou != null">#{totalshipAmou},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="products != null">#{products},</if>
+            <if test="allowoverOrder != null">#{allowoverOrder},</if>
+            <if test="allowoverStock != null">#{allowoverStock},</if>
+            <if test="overorderoutbVeri != null">#{overorderoutbVeri},</if>
+            <if test="stockCheck != null">#{stockCheck},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSalesoutbOrder" parameterType="SalesoutbOrder">
+        update salesoutb_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deliNumb != null">deli_numb = #{deliNumb},</if>
+            <if test="deliDate != null">deli_date = #{deliDate},</if>
+            <if test="deliPers != null">deli_pers = #{deliPers},</if>
+            <if test="saleorder != null">saleorder = #{saleorder},</if>
+            <if test="custId != null">cust_id = #{custId},</if>
+            <if test="staffId != null">staff_id = #{staffId},</if>
+            <if test="totaloutbQuan != null">totaloutb_quan = #{totaloutbQuan},</if>
+            <if test="totalshipAmou != null">totalship_amou = #{totalshipAmou},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="products != null">products = #{products},</if>
+            <if test="allowoverOrder != null">allowover_order = #{allowoverOrder},</if>
+            <if test="allowoverStock != null">allowover_stock = #{allowoverStock},</if>
+            <if test="overorderoutbVeri != null">overorderoutb_veri = #{overorderoutbVeri},</if>
+            <if test="stockCheck != null">stock_check = #{stockCheck},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSalesoutbOrderById" parameterType="Long">
+        delete from salesoutb_order where id = #{id}
+    </delete>
+
+    <delete id="deleteSalesoutbOrderByIds" parameterType="String">
+        delete from salesoutb_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

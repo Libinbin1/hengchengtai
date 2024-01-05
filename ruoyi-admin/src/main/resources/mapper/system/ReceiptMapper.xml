@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ReceiptMapper">
+    
+    <resultMap type="Receipt" id="ReceiptResult">
+        <result property="id"    column="id"    />
+        <result property="receiptNumb"    column="receipt_numb"    />
+        <result property="date"    column="date"    />
+        <result property="custId"    column="cust_id"    />
+        <result property="custMana"    column="cust_mana"    />
+        <result property="receAmou"    column="rece_amou"    />
+        <result property="remark"    column="remark"    />
+        <result property="contId"    column="cont_id"    />
+        <result property="paymMeth"    column="paym_meth"    />
+        <result property="paymStage"    column="paym_stage"    />
+        <result property="receRatio"    column="rece_ratio"    />
+        <result property="unpaid"    column="unpaid"    />
+        <result property="receamouThistime"    column="receamou_thistime"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectReceiptVo">
+        select id, receipt_numb, date, cust_id, cust_mana, rece_amou, remark, cont_id, paym_meth, paym_stage, rece_ratio, unpaid, receamou_thistime, json from receipt
+    </sql>
+
+    <select id="selectReceiptList" parameterType="Receipt" resultMap="ReceiptResult">
+        <include refid="selectReceiptVo"/>
+        <where>  
+            <if test="receiptNumb != null  and receiptNumb != ''"> and receipt_numb = #{receiptNumb}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="custId != null "> and cust_id = #{custId}</if>
+            <if test="custMana != null  and custMana != ''"> and cust_mana = #{custMana}</if>
+            <if test="receAmou != null  and receAmou != ''"> and rece_amou = #{receAmou}</if>
+            <if test="contId != null "> and cont_id = #{contId}</if>
+            <if test="paymMeth != null  and paymMeth != ''"> and paym_meth = #{paymMeth}</if>
+            <if test="paymStage != null  and paymStage != ''"> and paym_stage = #{paymStage}</if>
+            <if test="receRatio != null  and receRatio != ''"> and rece_ratio = #{receRatio}</if>
+            <if test="unpaid != null "> and unpaid = #{unpaid}</if>
+            <if test="receamouThistime != null  and receamouThistime != ''"> and receamou_thistime = #{receamouThistime}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectReceiptById" parameterType="Long" resultMap="ReceiptResult">
+        <include refid="selectReceiptVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertReceipt" parameterType="Receipt">
+        insert into receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="receiptNumb != null">receipt_numb,</if>
+            <if test="date != null">date,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="custMana != null">cust_mana,</if>
+            <if test="receAmou != null">rece_amou,</if>
+            <if test="remark != null">remark,</if>
+            <if test="contId != null">cont_id,</if>
+            <if test="paymMeth != null">paym_meth,</if>
+            <if test="paymStage != null">paym_stage,</if>
+            <if test="receRatio != null">rece_ratio,</if>
+            <if test="unpaid != null">unpaid,</if>
+            <if test="receamouThistime != null">receamou_thistime,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="receiptNumb != null">#{receiptNumb},</if>
+            <if test="date != null">#{date},</if>
+            <if test="custId != null">#{custId},</if>
+            <if test="custMana != null">#{custMana},</if>
+            <if test="receAmou != null">#{receAmou},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="contId != null">#{contId},</if>
+            <if test="paymMeth != null">#{paymMeth},</if>
+            <if test="paymStage != null">#{paymStage},</if>
+            <if test="receRatio != null">#{receRatio},</if>
+            <if test="unpaid != null">#{unpaid},</if>
+            <if test="receamouThistime != null">#{receamouThistime},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReceipt" parameterType="Receipt">
+        update receipt
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="receiptNumb != null">receipt_numb = #{receiptNumb},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="custId != null">cust_id = #{custId},</if>
+            <if test="custMana != null">cust_mana = #{custMana},</if>
+            <if test="receAmou != null">rece_amou = #{receAmou},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="contId != null">cont_id = #{contId},</if>
+            <if test="paymMeth != null">paym_meth = #{paymMeth},</if>
+            <if test="paymStage != null">paym_stage = #{paymStage},</if>
+            <if test="receRatio != null">rece_ratio = #{receRatio},</if>
+            <if test="unpaid != null">unpaid = #{unpaid},</if>
+            <if test="receamouThistime != null">receamou_thistime = #{receamouThistime},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReceiptById" parameterType="Long">
+        delete from receipt where id = #{id}
+    </delete>
+
+    <delete id="deleteReceiptByIds" parameterType="String">
+        delete from receipt where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

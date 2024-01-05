@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ClassificationMapper">
+    
+    <resultMap type="Classification" id="ClassificationResult">
+        <result property="id"    column="id"    />
+        <result property="classificationname"    column="classificationname"    />
+        <result property="defaultwarehouse"    column="defaultwarehouse"    />
+        <result property="code"    column="code"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectClassificationVo">
+        select id, classificationname, defaultwarehouse, code, json from classification
+    </sql>
+
+    <select id="selectClassificationList" parameterType="Classification" resultMap="ClassificationResult">
+        <include refid="selectClassificationVo"/>
+        <where>  
+            <if test="classificationname != null  and classificationname != ''"> and classificationname like concat('%', #{classificationname}, '%')</if>
+            <if test="defaultwarehouse != null  and defaultwarehouse != ''"> and defaultwarehouse = #{defaultwarehouse}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectClassificationById" parameterType="Long" resultMap="ClassificationResult">
+        <include refid="selectClassificationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertClassification" parameterType="Classification">
+        insert into classification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="classificationname != null">classificationname,</if>
+            <if test="defaultwarehouse != null">defaultwarehouse,</if>
+            <if test="code != null">code,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="classificationname != null">#{classificationname},</if>
+            <if test="defaultwarehouse != null">#{defaultwarehouse},</if>
+            <if test="code != null">#{code},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateClassification" parameterType="Classification">
+        update classification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="classificationname != null">classificationname = #{classificationname},</if>
+            <if test="defaultwarehouse != null">defaultwarehouse = #{defaultwarehouse},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClassificationById" parameterType="Long">
+        delete from classification where id = #{id}
+    </delete>
+
+    <delete id="deleteClassificationByIds" parameterType="String">
+        delete from classification where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

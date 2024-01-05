@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StockCheckMapper">
+    
+    <resultMap type="StockCheck" id="StockCheckResult">
+        <result property="id"    column="id"    />
+        <result property="checkNumb"    column="check_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="totalcheckQuan"    column="totalcheck_quan"    />
+        <result property="totalDiff"    column="total_diff"    />
+        <result property="remark"    column="remark"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="wareQuan"    column="ware_quan"    />
+        <result property="checkQuan"    column="check_quan"    />
+        <result property="resultStat"    column="result_stat"    />
+        <result property="diffQuan"    column="diff_quan"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectStockCheckVo">
+        select id, check_numb, pers, date, totalcheck_quan, total_diff, remark, prod_id, ware_quan, check_quan, result_stat, diff_quan, json from stock_check
+    </sql>
+
+    <select id="selectStockCheckList" parameterType="StockCheck" resultMap="StockCheckResult">
+        <include refid="selectStockCheckVo"/>
+        <where>  
+            <if test="checkNumb != null  and checkNumb != ''"> and check_numb = #{checkNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="totalcheckQuan != null  and totalcheckQuan != ''"> and totalcheck_quan = #{totalcheckQuan}</if>
+            <if test="totalDiff != null  and totalDiff != ''"> and total_diff = #{totalDiff}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="wareQuan != null  and wareQuan != ''"> and ware_quan = #{wareQuan}</if>
+            <if test="checkQuan != null  and checkQuan != ''"> and check_quan = #{checkQuan}</if>
+            <if test="resultStat != null  and resultStat != ''"> and result_stat = #{resultStat}</if>
+            <if test="diffQuan != null  and diffQuan != ''"> and diff_quan = #{diffQuan}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectStockCheckById" parameterType="Long" resultMap="StockCheckResult">
+        <include refid="selectStockCheckVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertStockCheck" parameterType="StockCheck">
+        insert into stock_check
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="checkNumb != null">check_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="totalcheckQuan != null">totalcheck_quan,</if>
+            <if test="totalDiff != null">total_diff,</if>
+            <if test="remark != null">remark,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="wareQuan != null">ware_quan,</if>
+            <if test="checkQuan != null">check_quan,</if>
+            <if test="resultStat != null">result_stat,</if>
+            <if test="diffQuan != null">diff_quan,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="checkNumb != null">#{checkNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="totalcheckQuan != null">#{totalcheckQuan},</if>
+            <if test="totalDiff != null">#{totalDiff},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="wareQuan != null">#{wareQuan},</if>
+            <if test="checkQuan != null">#{checkQuan},</if>
+            <if test="resultStat != null">#{resultStatt},</if>
+            <if test="diffQuan != null">#{diffQuan},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStockCheck" parameterType="StockCheck">
+        update stock_check
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="checkNumb != null">check_numb = #{checkNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="totalcheckQuan != null">totalcheck_quan = #{totalcheckQuan},</if>
+            <if test="totalDiff != null">total_diff = #{totalDiff},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="wareQuan != null">ware_quan = #{wareQuan},</if>
+            <if test="checkQuan != null">check_quan = #{checkQuan},</if>
+            <if test="resultStat != null">result_stat = #{resultStat},</if>
+            <if test="diffQuan != null">diff_quan = #{diffQuan},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStockCheckById" parameterType="Long">
+        delete from stock_check where id = #{id}
+    </delete>
+
+    <delete id="deleteStockCheckByIds" parameterType="String">
+        delete from stock_check where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

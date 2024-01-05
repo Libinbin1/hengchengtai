@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="productname"    column="productname"    />
+        <result property="prodCode"    column="prod_code"    />
+        <result property="specifications"    column="specifications"    />
+        <result property="clas"    column="clas"    />
+        <result property="unit"    column="unit"    />
+        <result property="remark"    column="remark"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="salesPrice"    column="sales_price"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProductVo">
+        select id, productname, prod_code, specifications, clas, unit, remark, purchase_price, sales_price, json from product
+    </sql>
+
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        <where>  
+            <if test="productname != null  and productname != ''"> and productname like concat('%', #{productname}, '%')</if>
+            <if test="prodCode != null  and prodCode != ''"> and prod_code = #{prodCode}</if>
+            <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
+            <if test="clas != null  and clas != ''"> and clas = #{clas}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="purchasePrice != null  and purchasePrice != ''"> and purchase_price = #{purchasePrice}</if>
+            <if test="salesPrice != null "> and sales_price = #{salesPrice}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProductById" parameterType="Long" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productname != null">productname,</if>
+            <if test="prodCode != null">prod_code,</if>
+            <if test="specifications != null">specifications,</if>
+            <if test="clas != null">clas,</if>
+            <if test="unit != null">unit,</if>
+            <if test="remark != null">remark,</if>
+            <if test="purchasePrice != null">purchase_price,</if>
+            <if test="salesPrice != null">sales_price,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productname != null">#{productname},</if>
+            <if test="prodCode != null">#{prodCode},</if>
+            <if test="specifications != null">#{specifications},</if>
+            <if test="clas != null">#{clas},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="purchasePrice != null">#{purchasePrice},</if>
+            <if test="salesPrice != null">#{salesPrice},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProduct" parameterType="Product">
+        update product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productname != null">productname = #{productname},</if>
+            <if test="prodCode != null">prod_code = #{prodCode},</if>
+            <if test="specifications != null">specifications = #{specifications},</if>
+            <if test="clas != null">clas = #{clas},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="salesPrice != null">sales_price = #{salesPrice},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProductById" parameterType="Long">
+        delete from product where id = #{id}
+    </delete>
+
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from product where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

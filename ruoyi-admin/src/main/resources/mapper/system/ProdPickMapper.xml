@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProdPickMapper">
+    
+    <resultMap type="ProdPick" id="ProdPickResult">
+        <result property="id"    column="id"    />
+        <result property="materequNumb"    column="materequ_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="prodordeId"    column="prodorde_id"    />
+        <result property="totalPick"    column="total_pick"    />
+        <result property="remark"    column="remark"    />
+        <result property="pickprodId"    column="pickprod_id"    />
+        <result property="quanmateRequ"    column="quanmate_requ"    />
+        <result property="warehousemateRequ"    column="warehousemate_requ"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProdPickVo">
+        select id, materequ_numb, pers, date, prodorde_id, total_pick, remark, pickprod_id, quanmate_requ, warehousemate_requ, json from prod_pick
+    </sql>
+
+    <select id="selectProdPickList" parameterType="ProdPick" resultMap="ProdPickResult">
+        <include refid="selectProdPickVo"/>
+        <where>  
+            <if test="materequNumb != null  and materequNumb != ''"> and materequ_numb = #{materequNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="prodordeId != null "> and prodorde_id = #{prodordeId}</if>
+            <if test="totalPick != null  and totalPick != ''"> and total_pick = #{totalPick}</if>
+            <if test="pickprodId != null "> and pickprod_id = #{pickprodId}</if>
+            <if test="quanmateRequ != null  and quanmateRequ != ''"> and quanmate_requ = #{quanmateRequ}</if>
+            <if test="warehousemateRequ != null  and warehousemateRequ != ''"> and warehousemate_requ = #{warehousemateRequ}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProdPickById" parameterType="Long" resultMap="ProdPickResult">
+        <include refid="selectProdPickVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProdPick" parameterType="ProdPick">
+        insert into prod_pick
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="materequNumb != null">materequ_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="prodordeId != null">prodorde_id,</if>
+            <if test="totalPick != null">total_pick,</if>
+            <if test="remark != null">remark,</if>
+            <if test="pickprodId != null">pickprod_id,</if>
+            <if test="quanmateRequ != null">quanmate_requ,</if>
+            <if test="warehousemateRequ != null">warehousemate_requ,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="materequNumb != null">#{materequNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="prodordeId != null">#{prodordeId},</if>
+            <if test="totalPick != null">#{totalPick},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="pickprodId != null">#{pickprodId},</if>
+            <if test="quanmateRequ != null">#{quanmateRequ},</if>
+            <if test="warehousemateRequ != null">#{warehousemateRequ},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProdPick" parameterType="ProdPick">
+        update prod_pick
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="materequNumb != null">materequ_numb = #{materequNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="prodordeId != null">prodorde_id = #{prodordeId},</if>
+            <if test="totalPick != null">total_pick = #{totalPick},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="pickprodId != null">pickprod_id = #{pickprodId},</if>
+            <if test="quanmateRequ != null">quanmate_requ = #{quanmateRequ},</if>
+            <if test="warehousemateRequ != null">warehousemate_requ = #{warehousemateRequ},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProdPickById" parameterType="Long">
+        delete from prod_pick where id = #{id}
+    </delete>
+
+    <delete id="deleteProdPickByIds" parameterType="String">
+        delete from prod_pick where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

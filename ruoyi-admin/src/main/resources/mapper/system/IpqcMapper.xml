@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.IpqcMapper">
+    
+    <resultMap type="Ipqc" id="IpqcResult">
+        <result property="id"    column="id"    />
+        <result property="ipqcNumb"    column="ipqc_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="prodordeId"    column="prodorde_id"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="techbomId"    column="techbom_id"    />
+        <result property="inspType"    column="insp_type"    />
+        <result property="inspItems"    column="insp_items"    />
+        <result property="measUnit"    column="meas_unit"    />
+        <result property="stanUppe"    column="stan_uppe"    />
+        <result property="stanLowe"    column="stan_lowe"    />
+        <result property="checkSum"    column="check_sum"    />
+        <result property="unquQuan"    column="unqu_quan"    />
+        <result property="passRate"    column="pass_rate"    />
+        <result property="inspResu"    column="insp_resu"    />
+        <result property="remark"    column="remark"    />
+        <result property="actual"    column="actual"    />
+        <result property="isQualified"    column="is_qualified"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectIpqcVo">
+        select id, ipqc_numb, pers, date, prodorde_id, prod_id, techbom_id, insp_type, insp_items, meas_unit, stan_uppe, stan_lowe, check_sum, unqu_quan, pass_rate, insp_resu, remark, actual, is_qualified, json from ipqc
+    </sql>
+
+    <select id="selectIpqcList" parameterType="Ipqc" resultMap="IpqcResult">
+        <include refid="selectIpqcVo"/>
+        <where>  
+            <if test="ipqcNumb != null  and ipqcNumb != ''"> and ipqc_numb = #{ipqcNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="prodordeId != null "> and prodorde_id = #{prodordeId}</if>
+            <if test="prodId != null  and prodId != ''"> and prod_id = #{prodId}</if>
+            <if test="techbomId != null "> and techbom_id = #{techbomId}</if>
+            <if test="inspType != null  and inspType != ''"> and insp_type = #{inspType}</if>
+            <if test="inspItems != null  and inspItems != ''"> and insp_items = #{inspItems}</if>
+            <if test="measUnit != null  and measUnit != ''"> and meas_unit = #{measUnit}</if>
+            <if test="stanUppe != null  and stanUppe != ''"> and stan_uppe = #{stanUppe}</if>
+            <if test="stanLowe != null  and stanLowe != ''"> and stan_lowe = #{stanLowe}</if>
+            <if test="checkSum != null  and checkSum != ''"> and check_sum = #{checkSum}</if>
+            <if test="unquQuan != null  and unquQuan != ''"> and unqu_quan = #{unquQuan}</if>
+            <if test="passRate != null  and passRate != ''"> and pass_rate = #{passRate}</if>
+            <if test="inspResu != null  and inspResu != ''"> and insp_resu = #{inspResu}</if>
+            <if test="actual != null  and actual != ''"> and actual = #{actual}</if>
+            <if test="isQualified != null  and isQualified != ''"> and is_qualified = #{isQualified}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectIpqcById" parameterType="Long" resultMap="IpqcResult">
+        <include refid="selectIpqcVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertIpqc" parameterType="Ipqc">
+        insert into ipqc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="ipqcNumb != null">ipqc_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="prodordeId != null">prodorde_id,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="techbomId != null">techbom_id,</if>
+            <if test="inspType != null">insp_type,</if>
+            <if test="inspItems != null">insp_items,</if>
+            <if test="measUnit != null">meas_unit,</if>
+            <if test="stanUppe != null">stan_uppe,</if>
+            <if test="stanLowe != null">stan_lowe,</if>
+            <if test="checkSum != null">check_sum,</if>
+            <if test="unquQuan != null">unqu_quan,</if>
+            <if test="passRate != null">pass_rate,</if>
+            <if test="inspResu != null">insp_resu,</if>
+            <if test="remark != null">remark,</if>
+            <if test="actual != null">actual,</if>
+            <if test="isQualified != null">is_qualified,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="ipqcNumb != null">#{ipqcNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="prodordeId != null">#{prodordeId},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="techbomId != null">#{techbomId},</if>
+            <if test="inspType != null">#{inspType},</if>
+            <if test="inspItems != null">#{inspItems},</if>
+            <if test="measUnit != null">#{measUnit},</if>
+            <if test="stanUppe != null">#{stanUppe},</if>
+            <if test="stanLowe != null">#{stanLowe},</if>
+            <if test="checkSum != null">#{checkSum},</if>
+            <if test="unquQuan != null">#{unquQuan},</if>
+            <if test="passRate != null">#{passRate},</if>
+            <if test="inspResu != null">#{inspResu},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="actual != null">#{actual},</if>
+            <if test="isQualified != null">#{isQualified},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateIpqc" parameterType="Ipqc">
+        update ipqc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ipqcNumb != null">ipqc_numb = #{ipqcNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="prodordeId != null">prodorde_id = #{prodordeId},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="techbomId != null">techbom_id = #{techbomId},</if>
+            <if test="inspType != null">insp_type = #{inspType},</if>
+            <if test="inspItems != null">insp_items = #{inspItems},</if>
+            <if test="measUnit != null">meas_unit = #{measUnit},</if>
+            <if test="stanUppe != null">stan_uppe = #{stanUppe},</if>
+            <if test="stanLowe != null">stan_lowe = #{stanLowe},</if>
+            <if test="checkSum != null">check_sum = #{checkSum},</if>
+            <if test="unquQuan != null">unqu_quan = #{unquQuan},</if>
+            <if test="passRate != null">pass_rate = #{passRate},</if>
+            <if test="inspResu != null">insp_resu = #{inspResu},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="actual != null">actual = #{actual},</if>
+            <if test="isQualified != null">is_qualified = #{isQualified},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteIpqcById" parameterType="Long">
+        delete from ipqc where id = #{id}
+    </delete>
+
+    <delete id="deleteIpqcByIds" parameterType="String">
+        delete from ipqc where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

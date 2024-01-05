@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProdWareMapper">
+    
+    <resultMap type="ProdWare" id="ProdWareResult">
+        <result property="id"    column="id"    />
+        <result property="wareentrNumb"    column="wareentr_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="prodordeId"    column="prodorde_id"    />
+        <result property="date"    column="date"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="wareId"    column="ware_id"    />
+        <result property="wareQuan"    column="ware_quan"    />
+        <result property="remark"    column="remark"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProdWareVo">
+        select id, wareentr_numb, pers, prodorde_id, date, prod_id, ware_id, ware_quan, remark, json from prod_ware
+    </sql>
+
+    <select id="selectProdWareList" parameterType="ProdWare" resultMap="ProdWareResult">
+        <include refid="selectProdWareVo"/>
+        <where>  
+            <if test="wareentrNumb != null  and wareentrNumb != ''"> and wareentr_numb = #{wareentrNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="prodordeId != null "> and prodorde_id = #{prodordeId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="wareId != null "> and ware_id = #{wareId}</if>
+            <if test="wareQuan != null  and wareQuan != ''"> and ware_quan = #{wareQuan}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProdWareById" parameterType="Long" resultMap="ProdWareResult">
+        <include refid="selectProdWareVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProdWare" parameterType="ProdWare">
+        insert into prod_ware
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="wareentrNumb != null">wareentr_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="prodordeId != null">prodorde_id,</if>
+            <if test="date != null">date,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="wareId != null">ware_id,</if>
+            <if test="wareQuan != null">ware_quan,</if>
+            <if test="remark != null">remark,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="wareentrNumb != null">#{wareentrNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="prodordeId != null">#{prodordeId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="wareId != null">#{wareId},</if>
+            <if test="wareQuan != null">#{wareQuan},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProdWare" parameterType="ProdWare">
+        update prod_ware
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="wareentrNumb != null">wareentr_numb = #{wareentrNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="prodordeId != null">prodorde_id = #{prodordeId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="wareId != null">ware_id = #{wareId},</if>
+            <if test="wareQuan != null">ware_quan = #{wareQuan},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProdWareById" parameterType="Long">
+        delete from prod_ware where id = #{id}
+    </delete>
+
+    <delete id="deleteProdWareByIds" parameterType="String">
+        delete from prod_ware where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

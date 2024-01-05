@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UnitMapper">
+    
+    <resultMap type="Unit" id="UnitResult">
+        <result property="id"    column="id"    />
+        <result property="unitname"    column="unitname"    />
+        <result property="code"    column="code"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectUnitVo">
+        select id, unitname, code, json from unit
+    </sql>
+
+    <select id="selectUnitList" parameterType="Unit" resultMap="UnitResult">
+        <include refid="selectUnitVo"/>
+        <where>  
+            <if test="unitname != null  and unitname != ''"> and unitname like concat('%', #{unitname}, '%')</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectUnitById" parameterType="Long" resultMap="UnitResult">
+        <include refid="selectUnitVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertUnit" parameterType="Unit">
+        insert into unit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="unitname != null">unitname,</if>
+            <if test="code != null">code,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="unitname != null">#{unitname},</if>
+            <if test="code != null">#{code},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUnit" parameterType="Unit">
+        update unit
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="unitname != null">unitname = #{unitname},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUnitById" parameterType="Long">
+        delete from unit where id = #{id}
+    </delete>
+
+    <delete id="deleteUnitByIds" parameterType="String">
+        delete from unit where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

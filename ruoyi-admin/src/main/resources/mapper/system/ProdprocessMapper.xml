@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProdprocessMapper">
+    
+    <resultMap type="Prodprocess" id="ProdprocessResult">
+        <result property="id"    column="id"    />
+        <result property="processname"    column="processname"    />
+        <result property="code"    column="code"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProdprocessVo">
+        select id, processname, code, json from prodprocess
+    </sql>
+
+    <select id="selectProdprocessList" parameterType="Prodprocess" resultMap="ProdprocessResult">
+        <include refid="selectProdprocessVo"/>
+        <where>  
+            <if test="processname != null  and processname != ''"> and processname like concat('%', #{processname}, '%')</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProdprocessById" parameterType="Long" resultMap="ProdprocessResult">
+        <include refid="selectProdprocessVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProdprocess" parameterType="Prodprocess">
+        insert into prodprocess
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="processname != null and processname != ''">processname,</if>
+            <if test="code != null">code,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="processname != null and processname != ''">#{processname},</if>
+            <if test="code != null">#{code},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProdprocess" parameterType="Prodprocess">
+        update prodprocess
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processname != null and processname != ''">processname = #{processname},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProdprocessById" parameterType="Long">
+        delete from prodprocess where id = #{id}
+    </delete>
+
+    <delete id="deleteProdprocessByIds" parameterType="String">
+        delete from prodprocess where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

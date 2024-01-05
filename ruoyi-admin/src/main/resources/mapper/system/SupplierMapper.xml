@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SupplierMapper">
+    
+    <resultMap type="Supplier" id="SupplierResult">
+        <result property="id"    column="id"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="contacts"    column="contacts"    />
+        <result property="contRole"    column="cont_role"    />
+        <result property="tel"    column="tel"    />
+        <result property="addr"    column="addr"    />
+        <result property="coopStat"    column="coop_stat"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectSupplierVo">
+        select id, supplier_name, supplier_id, contacts, cont_role, tel, addr, coop_stat, remarks, json from supplier
+    </sql>
+
+    <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        <where>  
+            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="supplierId != null  and supplierId != ''"> and supplier_id = #{supplierId}</if>
+            <if test="contacts != null  and contacts != ''"> and contacts = #{contacts}</if>
+            <if test="contRole != null  and contRole != ''"> and cont_role = #{contRole}</if>
+            <if test="tel != null  and tel != ''"> and tel = #{tel}</if>
+            <if test="addr != null  and addr != ''"> and addr = #{addr}</if>
+            <if test="coopStat != null  and coopStat != ''"> and coop_stat = #{coopStat}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectSupplierById" parameterType="Long" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSupplier" parameterType="Supplier">
+        insert into supplier
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="contacts != null">contacts,</if>
+            <if test="contRole != null">cont_role,</if>
+            <if test="tel != null">tel,</if>
+            <if test="addr != null">addr,</if>
+            <if test="coopStat != null">coop_stat,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="contacts != null">#{contacts},</if>
+            <if test="contRole != null">#{contRole},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="addr != null">#{addr},</if>
+            <if test="coopStat != null">#{coopStat},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSupplier" parameterType="Supplier">
+        update supplier
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="contacts != null">contacts = #{contacts},</if>
+            <if test="contRole != null">cont_role = #{contRole},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="coopStat != null">coop_stat = #{coopStat},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierById" parameterType="Long">
+        delete from supplier where id = #{id}
+    </delete>
+
+    <delete id="deleteSupplierByIds" parameterType="String">
+        delete from supplier where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

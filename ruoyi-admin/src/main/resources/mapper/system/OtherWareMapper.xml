@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OtherWareMapper">
+    
+    <resultMap type="OtherWare" id="OtherWareResult">
+        <result property="id"    column="id"    />
+        <result property="wareNumb"    column="ware_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="wareType"    column="ware_type"    />
+        <result property="remark"    column="remark"    />
+        <result property="contordeId"    column="contorde_id"    />
+        <result property="totalinboQuan"    column="totalinbo_quan"    />
+        <result property="toatalAmou"    column="toatal_amou"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="wareQuan"    column="ware_quan"    />
+        <result property="warehouse"    column="warehouse"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectOtherWareVo">
+        select id, ware_numb, pers, date, ware_type, remark, contorde_id, totalinbo_quan, toatal_amou, prod_id, ware_quan, warehouse, json from other_ware
+    </sql>
+
+    <select id="selectOtherWareList" parameterType="OtherWare" resultMap="OtherWareResult">
+        <include refid="selectOtherWareVo"/>
+        <where>  
+            <if test="wareNumb != null  and wareNumb != ''"> and ware_numb = #{wareNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="wareType != null  and wareType != ''"> and ware_type = #{wareType}</if>
+            <if test="contordeId != null "> and contorde_id = #{contordeId}</if>
+            <if test="totalinboQuan != null  and totalinboQuan != ''"> and totalinbo_quan = #{totalinboQuan}</if>
+            <if test="toatalAmou != null  and toatalAmou != ''"> and toatal_amou = #{toatalAmou}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="wareQuan != null  and wareQuan != ''"> and ware_quan = #{wareQuan}</if>
+            <if test="warehouse != null  and warehouse != ''"> and warehouse = #{warehouse}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectOtherWareById" parameterType="Long" resultMap="OtherWareResult">
+        <include refid="selectOtherWareVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertOtherWare" parameterType="OtherWare">
+        insert into other_ware
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="wareNumb != null">ware_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="wareType != null">ware_type,</if>
+            <if test="remark != null">remark,</if>
+            <if test="contordeId != null">contorde_id,</if>
+            <if test="totalinboQuan != null">totalinbo_quan,</if>
+            <if test="toatalAmou != null">toatal_amou,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="wareQuan != null">ware_quan,</if>
+            <if test="warehouse != null">warehouse,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="wareNumb != null">#{wareNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="wareType != null">#{wareType},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="contordeId != null">#{contordeId},</if>
+            <if test="totalinboQuan != null">#{totalinboQuan},</if>
+            <if test="toatalAmou != null">#{toatalAmou},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="wareQuan != null">#{wareQuan},</if>
+            <if test="warehouse != null">#{warehouse},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOtherWare" parameterType="OtherWare">
+        update other_ware
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="wareNumb != null">ware_numb = #{wareNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="wareType != null">ware_type = #{wareType},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="contordeId != null">contorde_id = #{contordeId},</if>
+            <if test="totalinboQuan != null">totalinbo_quan = #{totalinboQuan},</if>
+            <if test="toatalAmou != null">toatal_amou = #{toatalAmou},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="wareQuan != null">ware_quan = #{wareQuan},</if>
+            <if test="warehouse != null">warehouse = #{warehouse},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOtherWareById" parameterType="Long">
+        delete from other_ware where id = #{id}
+    </delete>
+
+    <delete id="deleteOtherWareByIds" parameterType="String">
+        delete from other_ware where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

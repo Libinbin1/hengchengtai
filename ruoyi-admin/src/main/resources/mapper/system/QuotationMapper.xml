@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.QuotationMapper">
+    
+    <resultMap type="Quotation" id="QuotationResult">
+        <result property="json"    column="json"    />
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="qutoDate"    column="qutoDate"    />
+        <result property="customcode"    column="customcode"    />
+        <result property="staffcode"    column="staffcode"    />
+        <result property="remark"    column="remark"    />
+        <result property="productcode"    column="productcode"    />
+        <result property="productId"    column="product_id"    />
+        <result property="staffcId"    column="staffc_id"    />
+        <result property="customId"    column="custom_id"    />
+        <result property="discountType"    column="discount_type"    />
+        <result property="originalPrice"    column="original_price"    />
+        <result property="discountQuotation"    column="discount_quotation"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectQuotationVo">
+        select json, id, code, qutoDate, customcode, staffcode, remark, productcode, product_id, staffc_id, custom_id, discount_type, original_price, discount_quotation, state from quotation
+    </sql>
+
+    <select id="selectQuotationList" parameterType="Quotation" resultMap="QuotationResult">
+        <include refid="selectQuotationVo"/>
+        <where>  
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="qutoDate != null "> and qutoDate = #{qutoDate}</if>
+            <if test="customcode != null  and customcode != ''"> and customcode = #{customcode}</if>
+            <if test="staffcode != null  and staffcode != ''"> and staffcode = #{staffcode}</if>
+            <if test="productcode != null  and productcode != ''"> and productcode = #{productcode}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="staffcId != null "> and staffc_id = #{staffcId}</if>
+            <if test="customId != null "> and custom_id = #{customId}</if>
+            <if test="discountType != null  and discountType != ''"> and discount_type = #{discountType}</if>
+            <if test="originalPrice != null  and originalPrice != ''"> and original_price = #{originalPrice}</if>
+            <if test="discountQuotation != null  and discountQuotation != ''"> and discount_quotation = #{discountQuotation}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectQuotationById" parameterType="Long" resultMap="QuotationResult">
+        <include refid="selectQuotationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertQuotation" parameterType="Quotation">
+        insert into quotation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="json != null">json,</if>
+            <if test="id != null">id,</if>
+            <if test="code != null">code,</if>
+            <if test="qutoDate != null">qutoDate,</if>
+            <if test="customcode != null">customcode,</if>
+            <if test="staffcode != null">staffcode,</if>
+            <if test="remark != null">remark,</if>
+            <if test="productcode != null">productcode,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="staffcId != null">staffc_id,</if>
+            <if test="customId != null">custom_id,</if>
+            <if test="discountType != null">discount_type,</if>
+            <if test="originalPrice != null">original_price,</if>
+            <if test="discountQuotation != null">discount_quotation,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="json != null">#{json},</if>
+            <if test="id != null">#{id},</if>
+            <if test="code != null">#{code},</if>
+            <if test="qutoDate != null">#{qutoDate},</if>
+            <if test="customcode != null">#{customcode},</if>
+            <if test="staffcode != null">#{staffcode},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="productcode != null">#{productcode},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="staffcId != null">#{staffcId},</if>
+            <if test="customId != null">#{customId},</if>
+            <if test="discountType != null">#{discountType},</if>
+            <if test="originalPrice != null">#{originalPrice},</if>
+            <if test="discountQuotation != null">#{discountQuotation},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateQuotation" parameterType="Quotation">
+        update quotation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="json != null">json = #{json},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="qutoDate != null">qutoDate = #{qutoDate},</if>
+            <if test="customcode != null">customcode = #{customcode},</if>
+            <if test="staffcode != null">staffcode = #{staffcode},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="productcode != null">productcode = #{productcode},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="staffcId != null">staffc_id = #{staffcId},</if>
+            <if test="customId != null">custom_id = #{customId},</if>
+            <if test="discountType != null">discount_type = #{discountType},</if>
+            <if test="originalPrice != null">original_price = #{originalPrice},</if>
+            <if test="discountQuotation != null">discount_quotation = #{discountQuotation},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteQuotationById" parameterType="Long">
+        delete from quotation where id = #{id}
+    </delete>
+
+    <delete id="deleteQuotationByIds" parameterType="String">
+        delete from quotation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FqcMapper">
+    
+    <resultMap type="Fqc" id="FqcResult">
+        <result property="id"    column="id"    />
+        <result property="fqcNumb"    column="fqc_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="prodordeId"    column="prodorde_id"    />
+        <result property="prodwareId"    column="prodware_id"    />
+        <result property="checkSum"    column="check_sum"    />
+        <result property="unquQuan"    column="unqu_quan"    />
+        <result property="passRate"    column="pass_rate"    />
+        <result property="procResu"    column="proc_resu"    />
+        <result property="remark"    column="remark"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectFqcVo">
+        select id, fqc_numb, pers, date, prodorde_id, prodware_id, check_sum, unqu_quan, pass_rate, proc_resu, remark, json from fqc
+    </sql>
+
+    <select id="selectFqcList" parameterType="Fqc" resultMap="FqcResult">
+        <include refid="selectFqcVo"/>
+        <where>  
+            <if test="fqcNumb != null  and fqcNumb != ''"> and fqc_numb = #{fqcNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="prodordeId != null "> and prodorde_id = #{prodordeId}</if>
+            <if test="prodwareId != null "> and prodware_id = #{prodwareId}</if>
+            <if test="checkSum != null  and checkSum != ''"> and check_sum = #{checkSum}</if>
+            <if test="unquQuan != null  and unquQuan != ''"> and unqu_quan = #{unquQuan}</if>
+            <if test="passRate != null  and passRate != ''"> and pass_rate = #{passRate}</if>
+            <if test="procResu != null  and procResu != ''"> and proc_resu = #{procResu}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectFqcById" parameterType="Long" resultMap="FqcResult">
+        <include refid="selectFqcVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFqc" parameterType="Fqc">
+        insert into fqc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="fqcNumb != null">fqc_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="prodordeId != null">prodorde_id,</if>
+            <if test="prodwareId != null">prodware_id,</if>
+            <if test="checkSum != null">check_sum,</if>
+            <if test="unquQuan != null">unqu_quan,</if>
+            <if test="passRate != null">pass_rate,</if>
+            <if test="procResu != null">proc_resu,</if>
+            <if test="remark != null">remark,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="fqcNumb != null">#{fqcNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="prodordeId != null">#{prodordeId},</if>
+            <if test="prodwareId != null">#{prodwareId},</if>
+            <if test="checkSum != null">#{checkSum},</if>
+            <if test="unquQuan != null">#{unquQuan},</if>
+            <if test="passRate != null">#{passRate},</if>
+            <if test="procResu != null">#{procResu},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFqc" parameterType="Fqc">
+        update fqc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fqcNumb != null">fqc_numb = #{fqcNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="prodordeId != null">prodorde_id = #{prodordeId},</if>
+            <if test="prodwareId != null">prodware_id = #{prodwareId},</if>
+            <if test="checkSum != null">check_sum = #{checkSum},</if>
+            <if test="unquQuan != null">unqu_quan = #{unquQuan},</if>
+            <if test="passRate != null">pass_rate = #{passRate},</if>
+            <if test="procResu != null">proc_resu = #{procResu},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFqcById" parameterType="Long">
+        delete from fqc where id = #{id}
+    </delete>
+
+    <delete id="deleteFqcByIds" parameterType="String">
+        delete from fqc where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

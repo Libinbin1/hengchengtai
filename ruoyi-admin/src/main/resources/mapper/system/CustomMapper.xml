@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CustomMapper">
+    
+    <resultMap type="Custom" id="CustomResult">
+        <result property="id"    column="id"    />
+        <result property="custname"    column="custname"    />
+        <result property="code"    column="code"    />
+        <result property="accoMana"    column="acco_mana"    />
+        <result property="remark"    column="remark"    />
+        <result property="add"    column="add"    />
+        <result property="custClas"    column="cust_clas"    />
+        <result property="contactname"    column="contactname"    />
+        <result property="duties"    column="duties"    />
+        <result property="contactInfo"    column="contact_info"    />
+        <result property="orgname"    column="orgname"    />
+        <result property="taxpIdennum"    column="taxp_idennum"    />
+        <result property="bankOfdepo"    column="bank_ofdepo"    />
+        <result property="bankAcco"    column="bank_acco"    />
+        <result property="address"    column="address"    />
+        <result property="tel"    column="tel"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectCustomVo">
+        select id, custname, code, acco_mana, remark, add, cust_clas, contactname, duties, contact_info, orgname, taxp_idennum, bank_ofdepo, bank_acco, address, tel, json from custom
+    </sql>
+
+    <select id="selectCustomList" parameterType="Custom" resultMap="CustomResult">
+        <include refid="selectCustomVo"/>
+        <where>  
+            <if test="custname != null  and custname != ''"> and custname like concat('%', #{custname}, '%')</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="accoMana != null  and accoMana != ''"> and acco_mana = #{accoMana}</if>
+            <if test="add != null  and add != ''"> and add = #{add}</if>
+            <if test="custClas != null  and custClas != ''"> and cust_clas = #{custClas}</if>
+            <if test="contactname != null  and contactname != ''"> and contactname like concat('%', #{contactname}, '%')</if>
+            <if test="duties != null  and duties != ''"> and duties = #{duties}</if>
+            <if test="contactInfo != null  and contactInfo != ''"> and contact_info = #{contactInfo}</if>
+            <if test="orgname != null  and orgname != ''"> and orgname like concat('%', #{orgname}, '%')</if>
+            <if test="taxpIdennum != null  and taxpIdennum != ''"> and taxp_idennum = #{taxpIdennum}</if>
+            <if test="bankOfdepo != null  and bankOfdepo != ''"> and bank_ofdepo = #{bankOfdepo}</if>
+            <if test="bankAcco != null  and bankAcco != ''"> and bank_acco = #{bankAcco}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="tel != null  and tel != ''"> and tel = #{tel}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectCustomById" parameterType="Long" resultMap="CustomResult">
+        <include refid="selectCustomVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCustom" parameterType="Custom">
+        insert into custom
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custname != null">custname,</if>
+            <if test="code != null">code,</if>
+            <if test="accoMana != null">acco_mana,</if>
+            <if test="remark != null">remark,</if>
+            <if test="add != null">add,</if>
+            <if test="custClas != null">cust_clas,</if>
+            <if test="contactname != null">contactname,</if>
+            <if test="duties != null">duties,</if>
+            <if test="contactInfo != null">contact_info,</if>
+            <if test="orgname != null">orgname,</if>
+            <if test="taxpIdennum != null">taxp_idennum,</if>
+            <if test="bankOfdepo != null">bank_ofdepo,</if>
+            <if test="bankAcco != null">bank_acco,</if>
+            <if test="address != null">address,</if>
+            <if test="tel != null">tel,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="custname != null">#{custname},</if>
+            <if test="code != null">#{code},</if>
+            <if test="accoMana != null">#{accoMana},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="add != null">#{add},</if>
+            <if test="custClas != null">#{custClas},</if>
+            <if test="contactname != null">#{contactname},</if>
+            <if test="duties != null">#{duties},</if>
+            <if test="contactInfo != null">#{contactInfo},</if>
+            <if test="orgname != null">#{orgname},</if>
+            <if test="taxpIdennum != null">#{taxpIdennum},</if>
+            <if test="bankOfdepo != null">#{bankOfdepo},</if>
+            <if test="bankAcco != null">#{bankAcco},</if>
+            <if test="address != null">#{address},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCustom" parameterType="Custom">
+        update custom
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="custname != null">custname = #{custname},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="accoMana != null">acco_mana = #{accoMana},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="add != null">add = #{add},</if>
+            <if test="custClas != null">cust_clas = #{custClas},</if>
+            <if test="contactname != null">contactname = #{contactname},</if>
+            <if test="duties != null">duties = #{duties},</if>
+            <if test="contactInfo != null">contact_info = #{contactInfo},</if>
+            <if test="orgname != null">orgname = #{orgname},</if>
+            <if test="taxpIdennum != null">taxp_idennum = #{taxpIdennum},</if>
+            <if test="bankOfdepo != null">bank_ofdepo = #{bankOfdepo},</if>
+            <if test="bankAcco != null">bank_acco = #{bankAcco},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomById" parameterType="Long">
+        delete from custom where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomByIds" parameterType="String">
+        delete from custom where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

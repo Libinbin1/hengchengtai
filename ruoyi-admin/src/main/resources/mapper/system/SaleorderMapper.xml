@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SaleorderMapper">
+    
+    <resultMap type="Saleorder" id="SaleorderResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="saledate"    column="saledate"    />
+        <result property="staffcode"    column="staffcode"    />
+        <result property="quotationCode"    column="quotation_code"    />
+        <result property="customCode"    column="custom_code"    />
+        <result property="paymentMethod"    column="payment_method"    />
+        <result property="customId"    column="custom_id"    />
+        <result property="quotationId"    column="quotation_id"    />
+        <result property="staffId"    column="staff_id"    />
+        <result property="totalContractamount"    column="total_contractamount"    />
+        <result property="totalContractquantity"    column="total_contractquantity"    />
+        <result property="remark"    column="remark"    />
+        <result property="productCode"    column="product_code"    />
+        <result property="schedulingCode"    column="scheduling_code"    />
+        <result property="schedulingId"    column="scheduling_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectSaleorderVo">
+        select id, code, saledate, staffcode, quotation_code, custom_code, payment_method, custom_id, quotation_id, staff_id, total_contractamount, total_contractquantity, remark, product_code, scheduling_code, scheduling_id, product_id, json from saleorder
+    </sql>
+
+    <select id="selectSaleorderList" parameterType="Saleorder" resultMap="SaleorderResult">
+        <include refid="selectSaleorderVo"/>
+        <where>  
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="saledate != null "> and saledate = #{saledate}</if>
+            <if test="staffcode != null  and staffcode != ''"> and staffcode = #{staffcode}</if>
+            <if test="quotationCode != null  and quotationCode != ''"> and quotation_code = #{quotationCode}</if>
+            <if test="customCode != null  and customCode != ''"> and custom_code = #{customCode}</if>
+            <if test="paymentMethod != null  and paymentMethod != ''"> and payment_method = #{paymentMethod}</if>
+            <if test="customId != null "> and custom_id = #{customId}</if>
+            <if test="quotationId != null "> and quotation_id = #{quotationId}</if>
+            <if test="staffId != null "> and staff_id = #{staffId}</if>
+            <if test="totalContractamount != null  and totalContractamount != ''"> and total_contractamount = #{totalContractamount}</if>
+            <if test="totalContractquantity != null  and totalContractquantity != ''"> and total_contractquantity = #{totalContractquantity}</if>
+            <if test="productCode != null  and productCode != ''"> and product_code = #{productCode}</if>
+            <if test="schedulingCode != null  and schedulingCode != ''"> and scheduling_code = #{schedulingCode}</if>
+            <if test="schedulingId != null "> and scheduling_id = #{schedulingId}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectSaleorderById" parameterType="Long" resultMap="SaleorderResult">
+        <include refid="selectSaleorderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSaleorder" parameterType="Saleorder">
+        insert into saleorder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="code != null">code,</if>
+            <if test="saledate != null">saledate,</if>
+            <if test="staffcode != null">staffcode,</if>
+            <if test="quotationCode != null">quotation_code,</if>
+            <if test="customCode != null">custom_code,</if>
+            <if test="paymentMethod != null">payment_method,</if>
+            <if test="customId != null">custom_id,</if>
+            <if test="quotationId != null">quotation_id,</if>
+            <if test="staffId != null">staff_id,</if>
+            <if test="totalContractamount != null">total_contractamount,</if>
+            <if test="totalContractquantity != null">total_contractquantity,</if>
+            <if test="remark != null">remark,</if>
+            <if test="productCode != null">product_code,</if>
+            <if test="schedulingCode != null">scheduling_code,</if>
+            <if test="schedulingId != null">scheduling_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="code != null">#{code},</if>
+            <if test="saledate != null">#{saledate},</if>
+            <if test="staffcode != null">#{staffcode},</if>
+            <if test="quotationCode != null">#{quotationCode},</if>
+            <if test="customCode != null">#{customCode},</if>
+            <if test="paymentMethod != null">#{paymentMethod},</if>
+            <if test="customId != null">#{customId},</if>
+            <if test="quotationId != null">#{quotationId},</if>
+            <if test="staffId != null">#{staffId},</if>
+            <if test="totalContractamount != null">#{totalContractamount},</if>
+            <if test="totalContractquantity != null">#{totalContractquantity},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="productCode != null">#{productCode},</if>
+            <if test="schedulingCode != null">#{schedulingCode},</if>
+            <if test="schedulingId != null">#{schedulingId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSaleorder" parameterType="Saleorder">
+        update saleorder
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null">code = #{code},</if>
+            <if test="saledate != null">saledate = #{saledate},</if>
+            <if test="staffcode != null">staffcode = #{staffcode},</if>
+            <if test="quotationCode != null">quotation_code = #{quotationCode},</if>
+            <if test="customCode != null">custom_code = #{customCode},</if>
+            <if test="paymentMethod != null">payment_method = #{paymentMethod},</if>
+            <if test="customId != null">custom_id = #{customId},</if>
+            <if test="quotationId != null">quotation_id = #{quotationId},</if>
+            <if test="staffId != null">staff_id = #{staffId},</if>
+            <if test="totalContractamount != null">total_contractamount = #{totalContractamount},</if>
+            <if test="totalContractquantity != null">total_contractquantity = #{totalContractquantity},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="productCode != null">product_code = #{productCode},</if>
+            <if test="schedulingCode != null">scheduling_code = #{schedulingCode},</if>
+            <if test="schedulingId != null">scheduling_id = #{schedulingId},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSaleorderById" parameterType="Long">
+        delete from saleorder where id = #{id}
+    </delete>
+
+    <delete id="deleteSaleorderByIds" parameterType="String">
+        delete from saleorder where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

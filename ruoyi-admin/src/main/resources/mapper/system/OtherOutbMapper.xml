@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OtherOutbMapper">
+    
+    <resultMap type="OtherOutb" id="OtherOutbResult">
+        <result property="id"    column="id"    />
+        <result property="outbNumb"    column="outb_numb"    />
+        <result property="pers"    column="pers"    />
+        <result property="date"    column="date"    />
+        <result property="outbType"    column="outb_type"    />
+        <result property="totalOutbQuan"    column="total_outb_quan"    />
+        <result property="remark"    column="remark"    />
+        <result property="purcordeId"    column="purcorde_id"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="outbQuan"    column="outb_quan"    />
+        <result property="outbWare"    column="outb_ware"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectOtherOutbVo">
+        select id, outb_numb, pers, date, outb_type, total_outb_quan, remark, purcorde_id, prod_id, outb_quan, outb_ware, json from other_outb
+    </sql>
+
+    <select id="selectOtherOutbList" parameterType="OtherOutb" resultMap="OtherOutbResult">
+        <include refid="selectOtherOutbVo"/>
+        <where>  
+            <if test="outbNumb != null  and outbNumb != ''"> and outb_numb = #{outbNumb}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="outbType != null  and outbType != ''"> and outb_type = #{outbType}</if>
+            <if test="totalOutbQuan != null  and totalOutbQuan != ''"> and total_outb_quan = #{totalOutbQuan}</if>
+            <if test="purcordeId != null "> and purcorde_id = #{purcordeId}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="outbQuan != null  and outbQuan != ''"> and outb_quan = #{outbQuan}</if>
+            <if test="outbWare != null  and outbWare != ''"> and outb_ware = #{outbWare}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectOtherOutbById" parameterType="Long" resultMap="OtherOutbResult">
+        <include refid="selectOtherOutbVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertOtherOutb" parameterType="OtherOutb">
+        insert into other_outb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="outbNumb != null">outb_numb,</if>
+            <if test="pers != null">pers,</if>
+            <if test="date != null">date,</if>
+            <if test="outbType != null">outb_type,</if>
+            <if test="totalOutbQuan != null">total_outb_quan,</if>
+            <if test="remark != null">remark,</if>
+            <if test="purcordeId != null">purcorde_id,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="outbQuan != null">outb_quan,</if>
+            <if test="outbWare != null">outb_ware,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="outbNumb != null">#{outbNumb},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="outbType != null">#{outbType},</if>
+            <if test="totalOutbQuan != null">#{totalOutbQuan},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="purcordeId != null">#{purcordeId},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="outbQuan != null">#{outbQuan},</if>
+            <if test="outbWare != null">#{outbWare},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOtherOutb" parameterType="OtherOutb">
+        update other_outb
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="outbNumb != null">outb_numb = #{outbNumb},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="outbType != null">outb_type = #{outbType},</if>
+            <if test="totalOutbQuan != null">total_outb_quan = #{totalOutbQuan},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="purcordeId != null">purcorde_id = #{purcordeId},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="outbQuan != null">outb_quan = #{outbQuan},</if>
+            <if test="outbWare != null">outb_ware = #{outbWare},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOtherOutbById" parameterType="Long">
+        delete from other_outb where id = #{id}
+    </delete>
+
+    <delete id="deleteOtherOutbByIds" parameterType="String">
+        delete from other_outb where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

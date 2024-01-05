@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PaymentMapper">
+    
+    <resultMap type="Payment" id="PaymentResult">
+        <result property="id"    column="id"    />
+        <result property="paymNumb"    column="paym_numb"    />
+        <result property="date"    column="date"    />
+        <result property="pers"    column="pers"    />
+        <result property="paymType"    column="paym_type"    />
+        <result property="paymAmou"    column="paym_amou"    />
+        <result property="remark1"    column="remark1"    />
+        <result property="contId"    column="cont_id"    />
+        <result property="suppId"    column="supp_id"    />
+        <result property="purcId"    column="purc_id"    />
+        <result property="contAmou"    column="cont_amou"    />
+        <result property="paidAmou"    column="paid_amou"    />
+        <result property="unpaidAmou"    column="unpaid_amou"    />
+        <result property="paidAmouThistime"    column="paid_amou_thistime"    />
+        <result property="remark2"    column="remark2"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectPaymentVo">
+        select id, paym_numb, date, pers, paym_type, paym_amou, remark1, cont_id, supp_id, purc_id, cont_amou, paid_amou, unpaid_amou, paid_amou_thistime, remark2, json from payment
+    </sql>
+
+    <select id="selectPaymentList" parameterType="Payment" resultMap="PaymentResult">
+        <include refid="selectPaymentVo"/>
+        <where>  
+            <if test="paymNumb != null  and paymNumb != ''"> and paym_numb = #{paymNumb}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="paymType != null  and paymType != ''"> and paym_type = #{paymType}</if>
+            <if test="paymAmou != null  and paymAmou != ''"> and paym_amou = #{paymAmou}</if>
+            <if test="remark1 != null  and remark1 != ''"> and remark1 = #{remark1}</if>
+            <if test="contId != null "> and cont_id = #{contId}</if>
+            <if test="suppId != null "> and supp_id = #{suppId}</if>
+            <if test="purcId != null "> and purc_id = #{purcId}</if>
+            <if test="contAmou != null  and contAmou != ''"> and cont_amou = #{contAmou}</if>
+            <if test="paidAmou != null  and paidAmou != ''"> and paid_amou = #{paidAmou}</if>
+            <if test="unpaidAmou != null "> and unpaid_amou = #{unpaidAmou}</if>
+            <if test="paidAmouThistime != null  and paidAmouThistime != ''"> and paid_amou_thistime = #{paidAmouThistime}</if>
+            <if test="remark2 != null  and remark2 != ''"> and remark2 = #{remark2}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectPaymentById" parameterType="Long" resultMap="PaymentResult">
+        <include refid="selectPaymentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPayment" parameterType="Payment">
+        insert into payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="paymNumb != null">paym_numb,</if>
+            <if test="date != null">date,</if>
+            <if test="pers != null">pers,</if>
+            <if test="paymType != null">paym_type,</if>
+            <if test="paymAmou != null">paym_amou,</if>
+            <if test="remark1 != null">remark1,</if>
+            <if test="contId != null">cont_id,</if>
+            <if test="suppId != null">supp_id,</if>
+            <if test="purcId != null">purc_id,</if>
+            <if test="contAmou != null">cont_amou,</if>
+            <if test="paidAmou != null">paid_amou,</if>
+            <if test="unpaidAmou != null">unpaid_amou,</if>
+            <if test="paidAmouThistime != null">paid_amou_thistime,</if>
+            <if test="remark2 != null">remark2,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="paymNumb != null">#{paymNumb},</if>
+            <if test="date != null">#{date},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="paymType != null">#{paymType},</if>
+            <if test="paymAmou != null">#{paymAmou},</if>
+            <if test="remark1 != null">#{remark1},</if>
+            <if test="contId != null">#{contId},</if>
+            <if test="suppId != null">#{suppId},</if>
+            <if test="purcId != null">#{purcId},</if>
+            <if test="contAmou != null">#{contAmou},</if>
+            <if test="paidAmou != null">#{paidAmou},</if>
+            <if test="unpaidAmou != null">#{unpaidAmou},</if>
+            <if test="paidAmouThistime != null">#{paidAmouThistime},</if>
+            <if test="remark2 != null">#{remark2},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePayment" parameterType="Payment">
+        update payment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="paymNumb != null">paym_numb = #{paymNumb},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="paymType != null">paym_type = #{paymType},</if>
+            <if test="paymAmou != null">paym_amou = #{paymAmou},</if>
+            <if test="remark1 != null">remark1 = #{remark1},</if>
+            <if test="contId != null">cont_id = #{contId},</if>
+            <if test="suppId != null">supp_id = #{suppId},</if>
+            <if test="purcId != null">purc_id = #{purcId},</if>
+            <if test="contAmou != null">cont_amou = #{contAmou},</if>
+            <if test="paidAmou != null">paid_amou = #{paidAmou},</if>
+            <if test="unpaidAmou != null">unpaid_amou = #{unpaidAmou},</if>
+            <if test="paidAmouThistime != null">paid_amou_thistime = #{paidAmouThistime},</if>
+            <if test="remark2 != null">remark2 = #{remark2},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePaymentById" parameterType="Long">
+        delete from payment where id = #{id}
+    </delete>
+
+    <delete id="deletePaymentByIds" parameterType="String">
+        delete from payment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

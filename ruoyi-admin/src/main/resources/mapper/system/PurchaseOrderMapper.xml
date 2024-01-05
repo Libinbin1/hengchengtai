@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PurchaseOrderMapper">
+    
+    <resultMap type="PurchaseOrder" id="PurchaseOrderResult">
+        <result property="id"    column="id"    />
+        <result property="purcId"    column="purc_id"    />
+        <result property="purchaser"    column="purchaser"    />
+        <result property="purcDate"    column="purc_date"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="suppId"    column="supp_id"    />
+        <result property="requdeliDate"    column="requdeli_date"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="totalpurcAmou"    column="totalpurc_amou"    />
+        <result property="totalprocQuan"    column="totalproc_quan"    />
+        <result property="retuQuan"    column="retu_quan"    />
+        <result property="entryStat"    column="entry_stat"    />
+        <result property="receQuan"    column="rece_quan"    />
+        <result property="unreQuan"    column="unre_quan"    />
+        <result property="paymStat"    column="paym_stat"    />
+        <result property="paidAmou"    column="paid_amou"    />
+        <result property="unpaAmou"    column="unpa_amou"    />
+        <result property="remark"    column="remark"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectPurchaseOrderVo">
+        select id, purc_id, purchaser, purc_date, order_type, supp_id, requdeli_date, prod_id, totalpurc_amou, totalproc_quan, retu_quan, entry_stat, rece_quan, unre_quan, paym_stat, paid_amou, unpa_amou, remark, json from purchase_order
+    </sql>
+
+    <select id="selectPurchaseOrderList" parameterType="PurchaseOrder" resultMap="PurchaseOrderResult">
+        <include refid="selectPurchaseOrderVo"/>
+        <where>  
+            <if test="purcId != null "> and purc_id = #{purcId}</if>
+            <if test="purchaser != null  and purchaser != ''"> and purchaser = #{purchaser}</if>
+            <if test="purcDate != null "> and purc_date = #{purcDate}</if>
+            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>
+            <if test="suppId != null "> and supp_id = #{suppId}</if>
+            <if test="requdeliDate != null "> and requdeli_date = #{requdeliDate}</if>
+            <if test="prodId != null  and prodId != ''"> and prod_id = #{prodId}</if>
+            <if test="totalpurcAmou != null  and totalpurcAmou != ''"> and totalpurc_amou = #{totalpurcAmou}</if>
+            <if test="totalprocQuan != null  and totalprocQuan != ''"> and totalproc_quan = #{totalprocQuan}</if>
+            <if test="retuQuan != null  and retuQuan != ''"> and retu_quan = #{retuQuan}</if>
+            <if test="entryStat != null  and entryStat != ''"> and entry_stat = #{entryStat}</if>
+            <if test="receQuan != null  and receQuan != ''"> and rece_quan = #{receQuan}</if>
+            <if test="unreQuan != null  and unreQuan != ''"> and unre_quan = #{unreQuan}</if>
+            <if test="paymStat != null  and paymStat != ''"> and paym_stat = #{paymStat}</if>
+            <if test="paidAmou != null  and paidAmou != ''"> and paid_amou = #{paidAmou}</if>
+            <if test="unpaAmou != null  and unpaAmou != ''"> and unpa_amou = #{unpaAmou}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectPurchaseOrderById" parameterType="Long" resultMap="PurchaseOrderResult">
+        <include refid="selectPurchaseOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPurchaseOrder" parameterType="PurchaseOrder">
+        insert into purchase_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="purcId != null">purc_id,</if>
+            <if test="purchaser != null">purchaser,</if>
+            <if test="purcDate != null">purc_date,</if>
+            <if test="orderType != null">order_type,</if>
+            <if test="suppId != null">supp_id,</if>
+            <if test="requdeliDate != null">requdeli_date,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="totalpurcAmou != null">totalpurc_amou,</if>
+            <if test="totalprocQuan != null">totalproc_quan,</if>
+            <if test="retuQuan != null">retu_quan,</if>
+            <if test="entryStat != null">entry_stat,</if>
+            <if test="receQuan != null">rece_quan,</if>
+            <if test="unreQuan != null">unre_quan,</if>
+            <if test="paymStat != null">paym_stat,</if>
+            <if test="paidAmou != null">paid_amou,</if>
+            <if test="unpaAmou != null">unpa_amou,</if>
+            <if test="remark != null">remark,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="purcId != null">#{purcId},</if>
+            <if test="purchaser != null">#{purchaser},</if>
+            <if test="purcDate != null">#{purcDate},</if>
+            <if test="orderType != null">#{orderType},</if>
+            <if test="suppId != null">#{suppId},</if>
+            <if test="requdeliDate != null">#{requdeliDate},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="totalpurcAmou != null">#{totalpurcAmou},</if>
+            <if test="totalprocQuan != null">#{totalprocQuan},</if>
+            <if test="retuQuan != null">#{retuQuan},</if>
+            <if test="entryStat != null">#{entryStat},</if>
+            <if test="receQuan != null">#{receQuan},</if>
+            <if test="unreQuan != null">#{unreQuan},</if>
+            <if test="paymStat != null">#{paymStat},</if>
+            <if test="paidAmou != null">#{paidAmou},</if>
+            <if test="unpaAmou != null">#{unpaAmou},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePurchaseOrder" parameterType="PurchaseOrder">
+        update purchase_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="purcId != null">purc_id = #{purcId},</if>
+            <if test="purchaser != null">purchaser = #{purchaser},</if>
+            <if test="purcDate != null">purc_date = #{purcDate},</if>
+            <if test="orderType != null">order_type = #{orderType},</if>
+            <if test="suppId != null">supp_id = #{suppId},</if>
+            <if test="requdeliDate != null">requdeli_date = #{requdeliDate},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="totalpurcAmou != null">totalpurc_amou = #{totalpurcAmou},</if>
+            <if test="totalprocQuan != null">totalproc_quan = #{totalprocQuan},</if>
+            <if test="retuQuan != null">retu_quan = #{retuQuan},</if>
+            <if test="entryStat != null">entry_stat = #{entryStat},</if>
+            <if test="receQuan != null">rece_quan = #{receQuan},</if>
+            <if test="unreQuan != null">unre_quan = #{unreQuan},</if>
+            <if test="paymStat != null">paym_stat = #{paymStat},</if>
+            <if test="paidAmou != null">paid_amou = #{paidAmou},</if>
+            <if test="unpaAmou != null">unpa_amou = #{unpaAmou},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePurchaseOrderById" parameterType="Long">
+        delete from purchase_order where id = #{id}
+    </delete>
+
+    <delete id="deletePurchaseOrderByIds" parameterType="String">
+        delete from purchase_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

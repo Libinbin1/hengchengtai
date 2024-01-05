@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProdOrderMapper">
+    
+    <resultMap type="ProdOrder" id="ProdOrderResult">
+        <result property="id"    column="id"    />
+        <result property="prodorderNumb"    column="prodorder_numb"    />
+        <result property="date"    column="date"    />
+        <result property="pers"    column="pers"    />
+        <result property="prodplanId"    column="prodplan_id"    />
+        <result property="prodprodId"    column="prodprod_id"    />
+        <result property="prodstartDate"    column="prodstart_date"    />
+        <result property="prodDeadline"    column="prod_deadline"    />
+        <result property="materialprodId"    column="materialprod_id"    />
+        <result property="prodproceId"    column="prodproce_id"    />
+        <result property="pickingStatus"    column="picking_status"    />
+        <result property="totalPicking"    column="total_picking"    />
+        <result property="totalUncla"    column="total_uncla"    />
+        <result property="wareStatus"    column="ware_status"    />
+        <result property="totalWare"    column="total_ware"    />
+        <result property="totalUnware"    column="total_unware"    />
+        <result property="contorderId"    column="contorder_id"    />
+        <result property="totalmaterRequ"    column="totalmater_requ"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProdOrderVo">
+        select id, prodorder_numb, date, pers, prodplan_id, prodprod_id, prodstart_date, prod_deadline, materialprod_id, prodproce_id, picking_status, total_picking, total_uncla, ware_status, total_ware, total_unware, contorder_id, totalmater_requ, json from prod_order
+    </sql>
+
+    <select id="selectProdOrderList" parameterType="ProdOrder" resultMap="ProdOrderResult">
+        <include refid="selectProdOrderVo"/>
+        <where>  
+            <if test="prodorderNumb != null  and prodorderNumb != ''"> and prodorder_numb = #{prodorderNumb}</if>
+            <if test="date != null  and date != ''"> and date = #{date}</if>
+            <if test="pers != null  and pers != ''"> and pers = #{pers}</if>
+            <if test="prodplanId != null "> and prodplan_id = #{prodplanId}</if>
+            <if test="prodprodId != null "> and prodprod_id = #{prodprodId}</if>
+            <if test="prodstartDate != null "> and prodstart_date = #{prodstartDate}</if>
+            <if test="prodDeadline != null  and prodDeadline != ''"> and prod_deadline = #{prodDeadline}</if>
+            <if test="materialprodId != null "> and materialprod_id = #{materialprodId}</if>
+            <if test="prodproceId != null "> and prodproce_id = #{prodproceId}</if>
+            <if test="pickingStatus != null  and pickingStatus != ''"> and picking_status = #{pickingStatus}</if>
+            <if test="totalPicking != null  and totalPicking != ''"> and total_picking = #{totalPicking}</if>
+            <if test="totalUncla != null  and totalUncla != ''"> and total_uncla = #{totalUncla}</if>
+            <if test="wareStatus != null  and wareStatus != ''"> and ware_status = #{wareStatus}</if>
+            <if test="totalWare != null  and totalWare != ''"> and total_ware = #{totalWare}</if>
+            <if test="totalUnware != null  and totalUnware != ''"> and total_unware = #{totalUnware}</if>
+            <if test="contorderId != null "> and contorder_id = #{contorderId}</if>
+            <if test="totalmaterRequ != null  and totalmaterRequ != ''"> and totalmater_requ = #{totalmaterRequ}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProdOrderById" parameterType="Long" resultMap="ProdOrderResult">
+        <include refid="selectProdOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProdOrder" parameterType="ProdOrder">
+        insert into prod_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="prodorderNumb != null">prodorder_numb,</if>
+            <if test="date != null">date,</if>
+            <if test="pers != null">pers,</if>
+            <if test="prodplanId != null">prodplan_id,</if>
+            <if test="prodprodId != null">prodprod_id,</if>
+            <if test="prodstartDate != null">prodstart_date,</if>
+            <if test="prodDeadline != null">prod_deadline,</if>
+            <if test="materialprodId != null">materialprod_id,</if>
+            <if test="prodproceId != null">prodproce_id,</if>
+            <if test="pickingStatus != null">picking_status,</if>
+            <if test="totalPicking != null">total_picking,</if>
+            <if test="totalUncla != null">total_uncla,</if>
+            <if test="wareStatus != null">ware_status,</if>
+            <if test="totalWare != null">total_ware,</if>
+            <if test="totalUnware != null">total_unware,</if>
+            <if test="contorderId != null">contorder_id,</if>
+            <if test="totalmaterRequ != null">totalmater_requ,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="prodorderNumb != null">#{prodorderNumb},</if>
+            <if test="date != null">#{date},</if>
+            <if test="pers != null">#{pers},</if>
+            <if test="prodplanId != null">#{prodplanId},</if>
+            <if test="prodprodId != null">#{prodprodId},</if>
+            <if test="prodstartDate != null">#{prodstartDate},</if>
+            <if test="prodDeadline != null">#{prodDeadline},</if>
+            <if test="materialprodId != null">#{materialprodId},</if>
+            <if test="prodproceId != null">#{prodproceId},</if>
+            <if test="pickingStatus != null">#{pickingStatus},</if>
+            <if test="totalPicking != null">#{totalPicking},</if>
+            <if test="totalUncla != null">#{totalUncla},</if>
+            <if test="wareStatus != null">#{wareStatus},</if>
+            <if test="totalWare != null">#{totalWare},</if>
+            <if test="totalUnware != null">#{totalUnware},</if>
+            <if test="contorderId != null">#{contorderId},</if>
+            <if test="totalmaterRequ != null">#{totalmaterRequ},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProdOrder" parameterType="ProdOrder">
+        update prod_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="prodorderNumb != null">prodorder_numb = #{prodorderNumb},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="pers != null">pers = #{pers},</if>
+            <if test="prodplanId != null">prodplan_id = #{prodplanId},</if>
+            <if test="prodprodId != null">prodprod_id = #{prodprodId},</if>
+            <if test="prodstartDate != null">prodstart_date = #{prodstartDate},</if>
+            <if test="prodDeadline != null">prod_deadline = #{prodDeadline},</if>
+            <if test="materialprodId != null">materialprod_id = #{materialprodId},</if>
+            <if test="prodproceId != null">prodproce_id = #{prodproceId},</if>
+            <if test="pickingStatus != null">picking_status = #{pickingStatus},</if>
+            <if test="totalPicking != null">total_picking = #{totalPicking},</if>
+            <if test="totalUncla != null">total_uncla = #{totalUncla},</if>
+            <if test="wareStatus != null">ware_status = #{wareStatus},</if>
+            <if test="totalWare != null">total_ware = #{totalWare},</if>
+            <if test="totalUnware != null">total_unware = #{totalUnware},</if>
+            <if test="contorderId != null">contorder_id = #{contorderId},</if>
+            <if test="totalmaterRequ != null">totalmater_requ = #{totalmaterRequ},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProdOrderById" parameterType="Long">
+        delete from prod_order where id = #{id}
+    </delete>
+
+    <delete id="deleteProdOrderByIds" parameterType="String">
+        delete from prod_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

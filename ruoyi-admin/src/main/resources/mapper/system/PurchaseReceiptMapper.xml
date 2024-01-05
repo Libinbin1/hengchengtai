@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PurchaseReceiptMapper">
+    
+    <resultMap type="PurchaseReceipt" id="PurchaseReceiptResult">
+        <result property="id"    column="id"    />
+        <result property="wareId"    column="ware_id"    />
+        <result property="wareDate"    column="ware_date"    />
+        <result property="warePers"    column="ware_pers"    />
+        <result property="purcorderId"    column="purcorder_id"    />
+        <result property="supp"    column="supp"    />
+        <result property="remark"    column="remark"    />
+        <result property="totalinboQuan"    column="totalinbo_quan"    />
+        <result property="totalamouRece"    column="totalamou_rece"    />
+        <result property="qualStat"    column="qual_stat"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="allowstorageafterQualityinsp"    column="allowstorageafter_qualityinsp"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectPurchaseReceiptVo">
+        select id, ware_id, ware_date, ware_pers, purcorder_id, supp, remark, totalinbo_quan, totalamou_rece, qual_stat, prod_id, allowstorageafter_qualityinsp, json from purchase_receipt
+    </sql>
+
+    <select id="selectPurchaseReceiptList" parameterType="PurchaseReceipt" resultMap="PurchaseReceiptResult">
+        <include refid="selectPurchaseReceiptVo"/>
+        <where>  
+            <if test="wareId != null "> and ware_id = #{wareId}</if>
+            <if test="wareDate != null "> and ware_date = #{wareDate}</if>
+            <if test="warePers != null  and warePers != ''"> and ware_pers = #{warePers}</if>
+            <if test="purcorderId != null  and purcorderId != ''"> and purcorder_id = #{purcorderId}</if>
+            <if test="supp != null  and supp != ''"> and supp = #{supp}</if>
+            <if test="totalinboQuan != null  and totalinboQuan != ''"> and totalinbo_quan = #{totalinboQuan}</if>
+            <if test="totalamouRece != null  and totalamouRece != ''"> and totalamou_rece = #{totalamouRece}</if>
+            <if test="qualStat != null  and qualStat != ''"> and qual_stat = #{qualStat}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="allowstorageafterQualityinsp != null  and allowstorageafterQualityinsp != ''"> and allowstorageafter_qualityinsp = #{allowstorageafterQualityinsp}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectPurchaseReceiptById" parameterType="Long" resultMap="PurchaseReceiptResult">
+        <include refid="selectPurchaseReceiptVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPurchaseReceipt" parameterType="PurchaseReceipt">
+        insert into purchase_receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="wareId != null">ware_id,</if>
+            <if test="wareDate != null">ware_date,</if>
+            <if test="warePers != null">ware_pers,</if>
+            <if test="purcorderId != null">purcorder_id,</if>
+            <if test="supp != null">supp,</if>
+            <if test="remark != null">remark,</if>
+            <if test="totalinboQuan != null">totalinbo_quan,</if>
+            <if test="totalamouRece != null">totalamou_rece,</if>
+            <if test="qualStat != null">qual_stat,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="allowstorageafterQualityinsp != null">allowstorageafter_qualityinsp,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="wareId != null">#{wareId},</if>
+            <if test="wareDate != null">#{wareDate},</if>
+            <if test="warePers != null">#{warePers},</if>
+            <if test="purcorderId != null">#{purcorderId},</if>
+            <if test="supp != null">#{supp},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="totalinboQuan != null">#{totalinboQuan},</if>
+            <if test="totalamouRece != null">#{totalamouRece},</if>
+            <if test="qualStat != null">#{qualStat},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="allowstorageafterQualityinsp != null">#{allowstorageafterQualityinsp},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePurchaseReceipt" parameterType="PurchaseReceipt">
+        update purchase_receipt
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="wareId != null">ware_id = #{wareId},</if>
+            <if test="wareDate != null">ware_date = #{wareDate},</if>
+            <if test="warePers != null">ware_pers = #{warePers},</if>
+            <if test="purcorderId != null">purcorder_id = #{purcorderId},</if>
+            <if test="supp != null">supp = #{supp},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="totalinboQuan != null">totalinbo_quan = #{totalinboQuan},</if>
+            <if test="totalamouRece != null">totalamou_rece = #{totalamouRece},</if>
+            <if test="qualStat != null">qual_stat = #{qualStat},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="allowstorageafterQualityinsp != null">allowstorageafter_qualityinsp = #{allowstorageafterQualityinsp},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePurchaseReceiptById" parameterType="Long">
+        delete from purchase_receipt where id = #{id}
+    </delete>
+
+    <delete id="deletePurchaseReceiptByIds" parameterType="String">
+        delete from purchase_receipt where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

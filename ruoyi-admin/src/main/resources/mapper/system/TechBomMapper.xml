@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TechBomMapper">
+    
+    <resultMap type="TechBom" id="TechBomResult">
+        <result property="id"    column="id"    />
+        <result property="bomCode"    column="bom_code"    />
+        <result property="bomName"    column="bom_name"    />
+        <result property="allowprodProce"    column="allowprod_proce"    />
+        <result property="bomenableStatus"    column="bomenable_status"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="subprodId"    column="subprod_id"    />
+        <result property="prodprocId"    column="prodproc_id"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectTechBomVo">
+        select id, bom_code, bom_name, allowprod_proce, bomenable_status, prod_id, subprod_id, prodproc_id, json from tech_bom
+    </sql>
+
+    <select id="selectTechBomList" parameterType="TechBom" resultMap="TechBomResult">
+        <include refid="selectTechBomVo"/>
+        <where>  
+            <if test="bomCode != null  and bomCode != ''"> and bom_code = #{bomCode}</if>
+            <if test="bomName != null  and bomName != ''"> and bom_name like concat('%', #{bomName}, '%')</if>
+            <if test="allowprodProce != null  and allowprodProce != ''"> and allowprod_proce = #{allowprodProce}</if>
+            <if test="bomenableStatus != null  and bomenableStatus != ''"> and bomenable_status = #{bomenableStatus}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="subprodId != null  and subprodId != ''"> and subprod_id = #{subprodId}</if>
+            <if test="prodprocId != null "> and prodproc_id = #{prodprocId}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectTechBomById" parameterType="Long" resultMap="TechBomResult">
+        <include refid="selectTechBomVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTechBom" parameterType="TechBom">
+        insert into tech_bom
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="bomCode != null">bom_code,</if>
+            <if test="bomName != null">bom_name,</if>
+            <if test="allowprodProce != null">allowprod_proce,</if>
+            <if test="bomenableStatus != null">bomenable_status,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="subprodId != null">subprod_id,</if>
+            <if test="prodprocId != null">prodproc_id,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="bomCode != null">#{bomCode},</if>
+            <if test="bomName != null">#{bomName},</if>
+            <if test="allowprodProce != null">#{allowprodProce},</if>
+            <if test="bomenableStatus != null">#{bomenableStatus},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="subprodId != null">#{subprodId},</if>
+            <if test="prodprocId != null">#{prodprocId},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTechBom" parameterType="TechBom">
+        update tech_bom
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bomCode != null">bom_code = #{bomCode},</if>
+            <if test="bomName != null">bom_name = #{bomName},</if>
+            <if test="allowprodProce != null">allowprod_proce = #{allowprodProce},</if>
+            <if test="bomenableStatus != null">bomenable_status = #{bomenableStatus},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="subprodId != null">subprod_id = #{subprodId},</if>
+            <if test="prodprocId != null">prodproc_id = #{prodprocId},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTechBomById" parameterType="Long">
+        delete from tech_bom where id = #{id}
+    </delete>
+
+    <delete id="deleteTechBomByIds" parameterType="String">
+        delete from tech_bom where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
