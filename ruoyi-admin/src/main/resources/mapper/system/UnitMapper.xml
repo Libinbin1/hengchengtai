@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertUnit" parameterType="Unit">
+    <insert id="insertUnit" parameterType="Unit" useGeneratedKeys="true" keyProperty="id">
         insert into unit
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

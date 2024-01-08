@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertOtherOutb" parameterType="OtherOutb">
+    <insert id="insertOtherOutb" parameterType="OtherOutb" useGeneratedKeys="true" keyProperty="id">
         insert into other_outb
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

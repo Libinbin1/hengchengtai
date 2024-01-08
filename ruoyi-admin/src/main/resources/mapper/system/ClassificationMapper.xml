@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertClassification" parameterType="Classification">
+    <insert id="insertClassification" parameterType="Classification" useGeneratedKeys="true" keyProperty="id">
         insert into classification
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

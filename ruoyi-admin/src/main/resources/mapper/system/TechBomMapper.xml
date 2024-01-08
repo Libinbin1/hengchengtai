@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertTechBom" parameterType="TechBom">
+    <insert id="insertTechBom" parameterType="TechBom" useGeneratedKeys="true" keyProperty="id">
         insert into tech_bom
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

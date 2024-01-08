@@ -32,7 +32,7 @@ public class Custom extends BaseEntity
 
     /** 地址 */
     @Excel(name = "地址")
-    private String add;
+    private String addr;
 
     /** 客户分类 */
     @Excel(name = "客户分类")
@@ -114,14 +114,14 @@ public class Custom extends BaseEntity
     {
         return accoMana;
     }
-    public void setAdd(String add) 
+    public void setAddr(String addr)
     {
-        this.add = add;
+        this.addr = addr;
     }
 
-    public String getAdd() 
+    public String getAddr()
     {
-        return add;
+        return addr;
     }
     public void setCustClas(String custClas) 
     {
@@ -231,7 +231,7 @@ public class Custom extends BaseEntity
             .append("code", getCode())
             .append("accoMana", getAccoMana())
             .append("remark", getRemark())
-            .append("add", getAdd())
+            .append("add", getAddr())
             .append("custClas", getCustClas())
             .append("contactname", getContactname())
             .append("duties", getDuties())

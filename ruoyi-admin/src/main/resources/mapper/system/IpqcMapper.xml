@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertIpqc" parameterType="Ipqc">
+    <insert id="insertIpqc" parameterType="Ipqc" useGeneratedKeys="true" keyProperty="id">
         insert into ipqc
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

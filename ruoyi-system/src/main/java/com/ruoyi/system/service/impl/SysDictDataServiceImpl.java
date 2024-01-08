@@ -1,6 +1,11 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.ruoyi.common.core.domain.entity.SysDictType;
+import com.ruoyi.system.mapper.SysDictTypeMapper;
+import com.ruoyi.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.core.domain.entity.SysDictData;
@@ -17,6 +22,9 @@ import com.ruoyi.system.service.ISysDictDataService;
 @Service
 public class SysDictDataServiceImpl implements ISysDictDataService
 {
+    @Autowired
+    private SysDictTypeMapper dictTypeMapper;
+
     @Autowired
     private SysDictDataMapper dictDataMapper;
 
@@ -109,5 +117,32 @@ public class SysDictDataServiceImpl implements ISysDictDataService
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
+    }
+
+    /**
+     * 修改保存字典数据信息
+     *
+     * @return 所有字典信息HashMap<'dict_type', HashMap<'dict_value', 'dict_label'>>
+     */
+    @Override
+    public HashMap<String, HashMap<String, String>> selectAllDict() {
+
+        HashMap<String, HashMap<String, String>> hashmap = new HashMap<>();
+
+        List<SysDictData> sysDictData = dictDataMapper.selectDictDataList(new SysDictData());
+
+        for (SysDictData sysDictDatum : sysDictData) {
+
+            if(hashmap.get(sysDictDatum.getDictType())!=null){
+                HashMap<String, String> stringStringHashMap = hashmap.get(sysDictDatum.getDictType());
+                stringStringHashMap.put(sysDictDatum.getDictValue(),sysDictDatum.getDictLabel());
+            }else {
+                HashMap<String, String> stringStringHashMap= new HashMap<>();
+                stringStringHashMap.put(sysDictDatum.getDictValue(),sysDictDatum.getDictLabel());
+                hashmap.put(sysDictDatum.getDictType(),stringStringHashMap);
+            }
+        }
+
+        return hashmap;
     }
 }

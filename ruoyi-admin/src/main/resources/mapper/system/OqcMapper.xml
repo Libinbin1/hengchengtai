@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertOqc" parameterType="Oqc">
+    <insert id="insertOqc" parameterType="Oqc" useGeneratedKeys="true" keyProperty="id">
         insert into oqc
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

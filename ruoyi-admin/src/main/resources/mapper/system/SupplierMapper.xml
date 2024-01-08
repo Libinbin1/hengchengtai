@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertSupplier" parameterType="Supplier">
+    <insert id="insertSupplier" parameterType="Supplier" useGeneratedKeys="true" keyProperty="id">
         insert into supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

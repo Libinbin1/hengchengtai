@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertRequInvo" parameterType="RequInvo">
+    <insert id="insertRequInvo" parameterType="RequInvo" useGeneratedKeys="true" keyProperty="id">
         insert into requ_invo
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

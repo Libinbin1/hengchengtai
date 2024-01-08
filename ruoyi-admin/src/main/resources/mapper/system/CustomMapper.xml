@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="code"    column="code"    />
         <result property="accoMana"    column="acco_mana"    />
         <result property="remark"    column="remark"    />
-        <result property="add"    column="add"    />
+        <result property="addr"    column="addr"    />
         <result property="custClas"    column="cust_clas"    />
         <result property="contactname"    column="contactname"    />
         <result property="duties"    column="duties"    />
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCustomVo">
-        select id, custname, code, acco_mana, remark, add, cust_clas, contactname, duties, contact_info, orgname, taxp_idennum, bank_ofdepo, bank_acco, address, tel, json from custom
+        select id, custname, code, acco_mana, remark, addr, cust_clas, contactname, duties, contact_info, orgname, taxp_idennum, bank_ofdepo, bank_acco, address, tel, json from custom
     </sql>
 
     <select id="selectCustomList" parameterType="Custom" resultMap="CustomResult">
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="custname != null  and custname != ''"> and custname like concat('%', #{custname}, '%')</if>
             <if test="code != null  and code != ''"> and code = #{code}</if>
             <if test="accoMana != null  and accoMana != ''"> and acco_mana = #{accoMana}</if>
-            <if test="add != null  and add != ''"> and add = #{add}</if>
+            <if test="addr != null  and addr != ''"> and addr = #{addr}</if>
             <if test="custClas != null  and custClas != ''"> and cust_clas = #{custClas}</if>
             <if test="contactname != null  and contactname != ''"> and contactname like concat('%', #{contactname}, '%')</if>
             <if test="duties != null  and duties != ''"> and duties = #{duties}</if>
@@ -54,15 +54,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertCustom" parameterType="Custom">
+    <insert id="insertCustom" parameterType="Custom" useGeneratedKeys="true" keyProperty="id" >
         insert into custom
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">id,</if>
             <if test="custname != null">custname,</if>
             <if test="code != null">code,</if>
             <if test="accoMana != null">acco_mana,</if>
             <if test="remark != null">remark,</if>
-            <if test="add != null">add,</if>
+            <if test="addr != null">addr,</if>
             <if test="custClas != null">cust_clas,</if>
             <if test="contactname != null">contactname,</if>
             <if test="duties != null">duties,</if>
@@ -76,12 +75,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="json != null">json,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id},</if>
             <if test="custname != null">#{custname},</if>
             <if test="code != null">#{code},</if>
             <if test="accoMana != null">#{accoMana},</if>
             <if test="remark != null">#{remark},</if>
-            <if test="add != null">#{add},</if>
+            <if test="addr != null">#{addr},</if>
             <if test="custClas != null">#{custClas},</if>
             <if test="contactname != null">#{contactname},</if>
             <if test="duties != null">#{duties},</if>
@@ -103,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="code != null">code = #{code},</if>
             <if test="accoMana != null">acco_mana = #{accoMana},</if>
             <if test="remark != null">remark = #{remark},</if>
-            <if test="add != null">add = #{add},</if>
+            <if test="addr != null">addr = #{addr},</if>
             <if test="custClas != null">cust_clas = #{custClas},</if>
             <if test="contactname != null">contactname = #{contactname},</if>
             <if test="duties != null">duties = #{duties},</if>

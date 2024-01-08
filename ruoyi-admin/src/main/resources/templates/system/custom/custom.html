@@ -24,11 +24,13 @@
                             </li>
                             <li>
                                 <label>地址：</label>
-                                <input type="text" name="add"/>
+                                <input type="text" name="addr"/>
                             </li>
                             <li>
                                 <label>客户分类：</label>
-                                <input type="text" name="custClas"/>
+                                <label><select name="custClas" class="form-control m-b" th:with="type=${@dict.getType('custom_cus')}">
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select></label>
                             </li>
                             <li>
                                 <label>联系人姓名：</label>
@@ -41,34 +43,6 @@
                             <li>
                                 <label>联系方式：</label>
                                 <input type="text" name="contactInfo"/>
-                            </li>
-                            <li>
-                                <label>开票单位：</label>
-                                <input type="text" name="orgname"/>
-                            </li>
-                            <li>
-                                <label>纳税人识别号：</label>
-                                <input type="text" name="taxpIdennum"/>
-                            </li>
-                            <li>
-                                <label>开户银行：</label>
-                                <input type="text" name="bankOfdepo"/>
-                            </li>
-                            <li>
-                                <label>银行账户：</label>
-                                <input type="text" name="bankAcco"/>
-                            </li>
-                            <li>
-                                <label>开票地址：</label>
-                                <input type="text" name="address"/>
-                            </li>
-                            <li>
-                                <label>开票电话：</label>
-                                <input type="text" name="tel"/>
-                            </li>
-                            <li>
-                                <label>${comment}：</label>
-                                <input type="text" name="json"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -103,8 +77,27 @@
         var editFlag = [[${@permission.hasPermi('system:custom:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:custom:remove')}]];
         var prefix = ctx + "system/custom";
+        var jsonObject = new Object();
+        // 创建一个Ajax请求
+        $.ajax({
+            url: '/framework/dict/getAllLabel',
+            type: 'GET',  // 请求类型，可以是GET或POST等
+            dataType: 'json',  // 期望的响应数据类型
+            success: function(data) {
+                if(data!=null){
+                    jsonObject = data.data;
+                }
+                initializeTable();
 
-        $(function() {
+            },
+            error: function() {
+                console.error('Ajax Error');
+            }
+        });
+
+        // 表格初始化函数
+        function initializeTable() {
+
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
@@ -137,12 +130,17 @@
                     title: '备注'
                 },
                 {
-                    field: 'add',
+                    field: 'addr',
                     title: '地址'
                 },
                 {
                     field: 'custClas',
-                    title: '客户分类'
+                    title: '客户分类',
+                    formatter:function (value,row,index) {
+                        let  map1 = jsonObject.custom_cus;
+                        return map1[value];
+
+                    }
                 },
                 {
                     field: 'contactname',
@@ -181,10 +179,6 @@
                     title: '开票电话'
                 },
                 {
-                    field: 'json',
-                    title: '${comment}'
-                },
-                {
                     title: '操作',
                     align: 'center',
                     formatter: function(value, row, index) {
@@ -196,7 +190,7 @@
                 }]
             };
             $.table.init(options);
-        });
+        }
     </script>
 </body>
 </html>

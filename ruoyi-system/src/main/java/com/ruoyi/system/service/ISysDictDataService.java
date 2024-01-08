@@ -1,5 +1,6 @@
 package com.ruoyi.system.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.ruoyi.common.core.domain.entity.SysDictData;
 
@@ -57,4 +58,5 @@ public interface ISysDictDataService
      * @return 结果
      */
     public int updateDictData(SysDictData dictData);
+    public HashMap<String, HashMap<String, String>> selectAllDict();
 }

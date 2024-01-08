@@ -1,11 +1,15 @@
 package com.ruoyi.framework.web.service;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.core.domain.entity.SysDictData;
 import com.ruoyi.system.service.ISysDictDataService;
 import com.ruoyi.system.service.ISysDictTypeService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * RuoYi首创 html调用 thymeleaf 实现字典读取
@@ -13,6 +17,7 @@ import com.ruoyi.system.service.ISysDictTypeService;
  * @author bin
  */
 @Service("dict")
+@RequestMapping("/framework/dict")
 public class DictService
 {
     @Autowired
@@ -42,5 +47,18 @@ public class DictService
     public String getLabel(String dictType, String dictValue)
     {
         return dictDataService.selectDictLabel(dictType, dictValue);
+    }
+
+    /**
+     * 获取所有的数据字典
+     *
+     * @return 字典标签
+     */
+    @RequestMapping("/getAllLabel")
+    @ResponseBody
+    public AjaxResult getAllLabel()
+    {
+
+        return   AjaxResult.success(dictDataService.selectAllDict());
     }
 }

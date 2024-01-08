@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertStockTable" parameterType="StockTable">
+    <insert id="insertStockTable" parameterType="StockTable" useGeneratedKeys="true" keyProperty="id">
         insert into stock_table
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertQuotation" parameterType="Quotation">
+    <insert id="insertQuotation" parameterType="Quotation" useGeneratedKeys="true" keyProperty="id">
         insert into quotation
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="json != null">json,</if>
