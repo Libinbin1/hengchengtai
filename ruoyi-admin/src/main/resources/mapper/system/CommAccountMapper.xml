@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CommAccountMapper">
+    
+    <resultMap type="CommAccount" id="CommAccountResult">
+        <result property="id"    column="id"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="type"    column="type"    />
+        <result property="customId"    column="custom_id"    />
+        <result property="saleorderId"    column="saleorder_id"    />
+        <result property="price"    column="price"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCommAccountVo">
+        select id, date_time, type, custom_id, saleorder_id, price, remark from comm_account
+    </sql>
+
+    <select id="selectCommAccountList" parameterType="CommAccount" resultMap="CommAccountResult">
+        <include refid="selectCommAccountVo"/>
+        <where>  
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="customId != null  and customId != ''"> and custom_id = #{customId}</if>
+            <if test="saleorderId != null  and saleorderId != ''"> and saleorder_id = #{saleorderId}</if>
+            <if test="price != null  and price != ''"> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectCommAccountById" parameterType="Long" resultMap="CommAccountResult">
+        <include refid="selectCommAccountVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCommAccount" parameterType="CommAccount">
+        insert into comm_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="type != null">type,</if>
+            <if test="customId != null">custom_id,</if>
+            <if test="saleorderId != null">saleorder_id,</if>
+            <if test="price != null">price,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="type != null">#{type},</if>
+            <if test="customId != null">#{customId},</if>
+            <if test="saleorderId != null">#{saleorderId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCommAccount" parameterType="CommAccount">
+        update comm_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="customId != null">custom_id = #{customId},</if>
+            <if test="saleorderId != null">saleorder_id = #{saleorderId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCommAccountById" parameterType="Long">
+        delete from comm_account where id = #{id}
+    </delete>
+
+    <delete id="deleteCommAccountByIds" parameterType="String">
+        delete from comm_account where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

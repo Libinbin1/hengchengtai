@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProdPlanMapper">
+    
+    <resultMap type="ProdPlan" id="ProdPlanResult">
+        <result property="id"    column="id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="planPers"    column="plan_pers"    />
+        <result property="date"    column="date"    />
+        <result property="planSour"    column="plan_sour"    />
+        <result property="saleOrderId"    column="sale_order_id"    />
+        <result property="prodId"    column="prod_id"    />
+        <result property="planprodId"    column="planprod_id"    />
+        <result property="planQuan"    column="plan_quan"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="planDeadline"    column="plan_deadline"    />
+        <result property="chooBom"    column="choo_bom"    />
+        <result property="remark"    column="remark"    />
+        <result property="materialdetaProd"    column="materialdeta_prod"    />
+        <result property="demandQuan"    column="demand_quan"    />
+        <result property="prodscheComprate"    column="prodsche_comprate"    />
+        <result property="warecompRate"    column="warecomp_rate"    />
+        <result property="prodscheStatus"    column="prodsche_status"    />
+        <result property="totalprodSche"    column="totalprod_sche"    />
+        <result property="totalprodUnsche"    column="totalprod_unsche"    />
+        <result property="wareStatus"    column="ware_status"    />
+        <result property="totalWare"    column="total_ware"    />
+        <result property="totalUnware"    column="total_unware"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectProdPlanVo">
+        select id, plan_id, plan_pers, date, plan_sour, sale_order_id, prod_id, planprod_id, plan_quan, start_date, plan_deadline, choo_bom, remark, materialdeta_prod, demand_quan, prodsche_comprate, warecomp_rate, prodsche_status, totalprod_sche, totalprod_unsche, ware_status, total_ware, total_unware, json from prod_plan
+    </sql>
+
+    <select id="selectProdPlanList" parameterType="ProdPlan" resultMap="ProdPlanResult">
+        <include refid="selectProdPlanVo"/>
+        <where>  
+            <if test="planId != null "> and plan_id = #{planId}</if>
+            <if test="planPers != null  and planPers != ''"> and plan_pers = #{planPers}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="planSour != null  and planSour != ''"> and plan_sour = #{planSour}</if>
+            <if test="saleOrderId != null "> and sale_order_id = #{saleOrderId}</if>
+            <if test="prodId != null "> and prod_id = #{prodId}</if>
+            <if test="planprodId != null "> and planprod_id = #{planprodId}</if>
+            <if test="planQuan != null  and planQuan != ''"> and plan_quan = #{planQuan}</if>
+            <if test="startDate != null "> and start_date = #{startDate}</if>
+            <if test="planDeadline != null  and planDeadline != ''"> and plan_deadline = #{planDeadline}</if>
+            <if test="chooBom != null  and chooBom != ''"> and choo_bom = #{chooBom}</if>
+            <if test="materialdetaProd != null  and materialdetaProd != ''"> and materialdeta_prod = #{materialdetaProd}</if>
+            <if test="demandQuan != null  and demandQuan != ''"> and demand_quan = #{demandQuan}</if>
+            <if test="prodscheComprate != null  and prodscheComprate != ''"> and prodsche_comprate = #{prodscheComprate}</if>
+            <if test="warecompRate != null  and warecompRate != ''"> and warecomp_rate = #{warecompRate}</if>
+            <if test="prodscheStatus != null  and prodscheStatus != ''"> and prodsche_status = #{prodscheStatus}</if>
+            <if test="totalprodSche != null  and totalprodSche != ''"> and totalprod_sche = #{totalprodSche}</if>
+            <if test="totalprodUnsche != null  and totalprodUnsche != ''"> and totalprod_unsche = #{totalprodUnsche}</if>
+            <if test="wareStatus != null  and wareStatus != ''"> and ware_status = #{wareStatus}</if>
+            <if test="totalWare != null  and totalWare != ''"> and total_ware = #{totalWare}</if>
+            <if test="totalUnware != null  and totalUnware != ''"> and total_unware = #{totalUnware}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectProdPlanById" parameterType="Long" resultMap="ProdPlanResult">
+        <include refid="selectProdPlanVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProdPlan" parameterType="ProdPlan">
+        insert into prod_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="planId != null">plan_id,</if>
+            <if test="planPers != null">plan_pers,</if>
+            <if test="date != null">date,</if>
+            <if test="planSour != null">plan_sour,</if>
+            <if test="saleOrderId != null">sale_order_id,</if>
+            <if test="prodId != null">prod_id,</if>
+            <if test="planprodId != null">planprod_id,</if>
+            <if test="planQuan != null">plan_quan,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="planDeadline != null">plan_deadline,</if>
+            <if test="chooBom != null">choo_bom,</if>
+            <if test="remark != null">remark,</if>
+            <if test="materialdetaProd != null">materialdeta_prod,</if>
+            <if test="demandQuan != null">demand_quan,</if>
+            <if test="prodscheComprate != null">prodsche_comprate,</if>
+            <if test="warecompRate != null">warecomp_rate,</if>
+            <if test="prodscheStatus != null">prodsche_status,</if>
+            <if test="totalprodSche != null">totalprod_sche,</if>
+            <if test="totalprodUnsche != null">totalprod_unsche,</if>
+            <if test="wareStatus != null">ware_status,</if>
+            <if test="totalWare != null">total_ware,</if>
+            <if test="totalUnware != null">total_unware,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="planId != null">#{planId},</if>
+            <if test="planPers != null">#{planPers},</if>
+            <if test="date != null">#{date},</if>
+            <if test="planSour != null">#{planSour},</if>
+            <if test="saleOrderId != null">#{saleOrderId},</if>
+            <if test="prodId != null">#{prodId},</if>
+            <if test="planprodId != null">#{planprodId},</if>
+            <if test="planQuan != null">#{planQuan},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="planDeadline != null">#{planDeadline},</if>
+            <if test="chooBom != null">#{chooBom},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="materialdetaProd != null">#{materialdetaProd},</if>
+            <if test="demandQuan != null">#{demandQuan},</if>
+            <if test="prodscheComprate != null">#{prodscheComprate},</if>
+            <if test="warecompRate != null">#{warecompRate},</if>
+            <if test="prodscheStatus != null">#{prodscheStatus},</if>
+            <if test="totalprodSche != null">#{totalprodSche},</if>
+            <if test="totalprodUnsche != null">#{totalprodUnsche},</if>
+            <if test="wareStatus != null">#{wareStatus},</if>
+            <if test="totalWare != null">#{totalWare},</if>
+            <if test="totalUnware != null">#{totalUnware},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProdPlan" parameterType="ProdPlan">
+        update prod_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="planPers != null">plan_pers = #{planPers},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="planSour != null">plan_sour = #{planSour},</if>
+            <if test="saleOrderId != null">sale_order_id = #{saleOrderId},</if>
+            <if test="prodId != null">prod_id = #{prodId},</if>
+            <if test="planprodId != null">planprod_id = #{planprodId},</if>
+            <if test="planQuan != null">plan_quan = #{planQuan},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="planDeadline != null">plan_deadline = #{planDeadline},</if>
+            <if test="chooBom != null">choo_bom = #{chooBom},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="materialdetaProd != null">materialdeta_prod = #{materialdetaProd},</if>
+            <if test="demandQuan != null">demand_quan = #{demandQuan},</if>
+            <if test="prodscheComprate != null">prodsche_comprate = #{prodscheComprate},</if>
+            <if test="warecompRate != null">warecomp_rate = #{warecompRate},</if>
+            <if test="prodscheStatus != null">prodsche_status = #{prodscheStatus},</if>
+            <if test="totalprodSche != null">totalprod_sche = #{totalprodSche},</if>
+            <if test="totalprodUnsche != null">totalprod_unsche = #{totalprodUnsche},</if>
+            <if test="wareStatus != null">ware_status = #{wareStatus},</if>
+            <if test="totalWare != null">total_ware = #{totalWare},</if>
+            <if test="totalUnware != null">total_unware = #{totalUnware},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProdPlanById" parameterType="Long">
+        delete from prod_plan where id = #{id}
+    </delete>
+
+    <delete id="deleteProdPlanByIds" parameterType="String">
+        delete from prod_plan where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

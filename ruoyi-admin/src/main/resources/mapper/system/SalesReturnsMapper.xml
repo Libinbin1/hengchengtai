@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SalesReturnsMapper">
+    
+    <resultMap type="SalesReturns" id="SalesReturnsResult">
+        <result property="id"    column="id"    />
+        <result property="saleorderCode"    column="saleorder_code"    />
+        <result property="saleorderId"    column="saleorder_id"    />
+        <result property="customId"    column="custom_id"    />
+        <result property="returnQuantity"    column="return_quantity"    />
+        <result property="productId"    column="product_id"    />
+    </resultMap>
+
+    <sql id="selectSalesReturnsVo">
+        select id, saleorder_code, saleorder_id, custom_id, return_quantity, product_id from sales_returns
+    </sql>
+
+    <select id="selectSalesReturnsList" parameterType="SalesReturns" resultMap="SalesReturnsResult">
+        <include refid="selectSalesReturnsVo"/>
+        <where>  
+            <if test="saleorderCode != null  and saleorderCode != ''"> and saleorder_code = #{saleorderCode}</if>
+            <if test="saleorderId != null  and saleorderId != ''"> and saleorder_id = #{saleorderId}</if>
+            <if test="customId != null  and customId != ''"> and custom_id = #{customId}</if>
+            <if test="returnQuantity != null  and returnQuantity != ''"> and return_quantity = #{returnQuantity}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSalesReturnsById" parameterType="Long" resultMap="SalesReturnsResult">
+        <include refid="selectSalesReturnsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSalesReturns" parameterType="SalesReturns">
+        insert into sales_returns
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="saleorderCode != null and saleorderCode != ''">saleorder_code,</if>
+            <if test="saleorderId != null">saleorder_id,</if>
+            <if test="customId != null">custom_id,</if>
+            <if test="returnQuantity != null">return_quantity,</if>
+            <if test="productId != null">product_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="saleorderCode != null and saleorderCode != ''">#{saleorderCode},</if>
+            <if test="saleorderId != null">#{saleorderId},</if>
+            <if test="customId != null">#{customId},</if>
+            <if test="returnQuantity != null">#{returnQuantity},</if>
+            <if test="productId != null">#{productId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSalesReturns" parameterType="SalesReturns">
+        update sales_returns
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="saleorderCode != null and saleorderCode != ''">saleorder_code = #{saleorderCode},</if>
+            <if test="saleorderId != null">saleorder_id = #{saleorderId},</if>
+            <if test="customId != null">custom_id = #{customId},</if>
+            <if test="returnQuantity != null">return_quantity = #{returnQuantity},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSalesReturnsById" parameterType="Long">
+        delete from sales_returns where id = #{id}
+    </delete>
+
+    <delete id="deleteSalesReturnsByIds" parameterType="String">
+        delete from sales_returns where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

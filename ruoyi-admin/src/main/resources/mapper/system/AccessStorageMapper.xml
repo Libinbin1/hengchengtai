@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AccessStorageMapper">
+    
+    <resultMap type="AccessStorage" id="AccessStorageResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="datetime"    column="datetime"    />
+        <result property="ticketNumber"    column="ticket_number"    />
+        <result property="tax"    column="tax"    />
+        <result property="price"    column="price"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectAccessStorageVo">
+        select id, type, datetime, ticket_number, tax, price, order_id, json from access_storage
+    </sql>
+
+    <select id="selectAccessStorageList" parameterType="AccessStorage" resultMap="AccessStorageResult">
+        <include refid="selectAccessStorageVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="datetime != null "> and datetime = #{datetime}</if>
+            <if test="ticketNumber != null  and ticketNumber != ''"> and ticket_number = #{ticketNumber}</if>
+            <if test="tax != null  and tax != ''"> and tax = #{tax}</if>
+            <if test="price != null  and price != ''"> and price = #{price}</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectAccessStorageById" parameterType="Long" resultMap="AccessStorageResult">
+        <include refid="selectAccessStorageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAccessStorage" parameterType="AccessStorage">
+        insert into access_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="type != null">type,</if>
+            <if test="datetime != null">datetime,</if>
+            <if test="ticketNumber != null">ticket_number,</if>
+            <if test="tax != null">tax,</if>
+            <if test="price != null">price,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="type != null">#{type},</if>
+            <if test="datetime != null">#{datetime},</if>
+            <if test="ticketNumber != null">#{ticketNumber},</if>
+            <if test="tax != null">#{tax},</if>
+            <if test="price != null">#{price},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAccessStorage" parameterType="AccessStorage">
+        update access_storage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="datetime != null">datetime = #{datetime},</if>
+            <if test="ticketNumber != null">ticket_number = #{ticketNumber},</if>
+            <if test="tax != null">tax = #{tax},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAccessStorageById" parameterType="Long">
+        delete from access_storage where id = #{id}
+    </delete>
+
+    <delete id="deleteAccessStorageByIds" parameterType="String">
+        delete from access_storage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

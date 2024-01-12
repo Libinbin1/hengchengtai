@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增销售退货')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-returns-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">销售单号：</label>
+                <div class="col-sm-8">
+                    <input name="saleorderCode" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">关联销售订单：</label>
+                <div class="col-sm-8">
+                    <input name="saleorderId" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">关联客户：</label>
+                <div class="col-sm-8">
+                    <input name="customId" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">退货数量：</label>
+                <div class="col-sm-8">
+                    <input name="returnQuantity" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">退货产品：</label>
+                <div class="col-sm-8">
+                    <input name="productId" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "system/returns"
+        $("#form-returns-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-returns-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ReturnWarehouseMapper">
+    
+    <resultMap type="ReturnWarehouse" id="ReturnWarehouseResult">
+        <result property="id"    column="id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="productId"    column="product_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="json"    column="json"    />
+    </resultMap>
+
+    <sql id="selectReturnWarehouseVo">
+        select id, product_name, date_time, product_id, remark, warehouse_id, json from return_warehouse
+    </sql>
+
+    <select id="selectReturnWarehouseList" parameterType="ReturnWarehouse" resultMap="ReturnWarehouseResult">
+        <include refid="selectReturnWarehouseVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="warehouseId != null  and warehouseId != ''"> and warehouse_id = #{warehouseId}</if>
+            <if test="json != null  and json != ''"> and json = #{json}</if>
+        </where>
+    </select>
+    
+    <select id="selectReturnWarehouseById" parameterType="Long" resultMap="ReturnWarehouseResult">
+        <include refid="selectReturnWarehouseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertReturnWarehouse" parameterType="ReturnWarehouse">
+        insert into return_warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="json != null">json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="json != null">#{json},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReturnWarehouse" parameterType="ReturnWarehouse">
+        update return_warehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="json != null">json = #{json},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReturnWarehouseById" parameterType="Long">
+        delete from return_warehouse where id = #{id}
+    </delete>
+
+    <delete id="deleteReturnWarehouseByIds" parameterType="String">
+        delete from return_warehouse where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

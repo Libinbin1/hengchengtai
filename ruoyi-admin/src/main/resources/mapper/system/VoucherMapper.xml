@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VoucherMapper">
+    
+    <resultMap type="Voucher" id="VoucherResult">
+        <result property="id"    column="id"    />
+        <result property="accessId"    column="access_id"    />
+        <result property="ticketNum"    column="ticket_num"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="otherPrice"    column="other_price"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="salePrice"    column="sale_price"    />
+        <result property="customId"    column="custom_id"    />
+        <result property="saleorderId"    column="saleorder_id"    />
+        <result property="procurePrice"    column="procure_price"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectVoucherVo">
+        select id, access_id, ticket_num, supplier_id, other_price, supplier_name, sale_price, custom_id, saleorder_id, procure_price, date_time, remark from voucher
+    </sql>
+
+    <select id="selectVoucherList" parameterType="Voucher" resultMap="VoucherResult">
+        <include refid="selectVoucherVo"/>
+        <where>  
+            <if test="accessId != null  and accessId != ''"> and access_id = #{accessId}</if>
+            <if test="ticketNum != null  and ticketNum != ''"> and ticket_num = #{ticketNum}</if>
+            <if test="supplierId != null  and supplierId != ''"> and supplier_id = #{supplierId}</if>
+            <if test="otherPrice != null  and otherPrice != ''"> and other_price = #{otherPrice}</if>
+            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="salePrice != null  and salePrice != ''"> and sale_price = #{salePrice}</if>
+            <if test="customId != null  and customId != ''"> and custom_id = #{customId}</if>
+            <if test="saleorderId != null  and saleorderId != ''"> and saleorder_id = #{saleorderId}</if>
+            <if test="procurePrice != null  and procurePrice != ''"> and procure_price = #{procurePrice}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectVoucherById" parameterType="Long" resultMap="VoucherResult">
+        <include refid="selectVoucherVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVoucher" parameterType="Voucher">
+        insert into voucher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="accessId != null">access_id,</if>
+            <if test="ticketNum != null">ticket_num,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="otherPrice != null">other_price,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="salePrice != null">sale_price,</if>
+            <if test="customId != null">custom_id,</if>
+            <if test="saleorderId != null">saleorder_id,</if>
+            <if test="procurePrice != null">procure_price,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="accessId != null">#{accessId},</if>
+            <if test="ticketNum != null">#{ticketNum},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="otherPrice != null">#{otherPrice},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="salePrice != null">#{salePrice},</if>
+            <if test="customId != null">#{customId},</if>
+            <if test="saleorderId != null">#{saleorderId},</if>
+            <if test="procurePrice != null">#{procurePrice},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVoucher" parameterType="Voucher">
+        update voucher
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accessId != null">access_id = #{accessId},</if>
+            <if test="ticketNum != null">ticket_num = #{ticketNum},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="otherPrice != null">other_price = #{otherPrice},</if>
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="salePrice != null">sale_price = #{salePrice},</if>
+            <if test="customId != null">custom_id = #{customId},</if>
+            <if test="saleorderId != null">saleorder_id = #{saleorderId},</if>
+            <if test="procurePrice != null">procure_price = #{procurePrice},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVoucherById" parameterType="Long">
+        delete from voucher where id = #{id}
+    </delete>
+
+    <delete id="deleteVoucherByIds" parameterType="String">
+        delete from voucher where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
