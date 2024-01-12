@@ -58,4 +58,14 @@ public interface ICustomService
      * @return 结果
      */
     public int deleteCustomById(Long id);
+
+    /**
+     * 欠款审批
+     */
+    int toApproval(String id,String arrApproval);
+
+    /**
+     * 查询所有客户
+     */
+    List<Custom> selectCustomAllList();
 }

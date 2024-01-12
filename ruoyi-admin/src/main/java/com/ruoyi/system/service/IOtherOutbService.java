@@ -6,8 +6,8 @@ import com.ruoyi.system.domain.OtherOutb;
 /**
  * 其他出库Service接口
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 public interface IOtherOutbService 
 {

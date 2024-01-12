@@ -22,8 +22,8 @@ import com.ruoyi.common.core.page.TableDataInfo;
 /**
  * 销售出库Controller
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 @Controller
 @RequestMapping("/system/salesoutborder")
@@ -34,17 +34,17 @@ public class SalesoutbOrderController extends BaseController
     @Autowired
     private ISalesoutbOrderService salesoutbOrderService;
 
-    @RequiresPermissions("system:order:view")
+    @RequiresPermissions("system:salesoutborder:view")
     @GetMapping()
-    public String order()
+    public String salesoutborder()
     {
-        return prefix + "/order";
+        return prefix + "/salesoutborder";
     }
 
     /**
      * 查询销售出库列表
      */
-    @RequiresPermissions("system:order:list")
+    @RequiresPermissions("system:salesoutborder:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(SalesoutbOrder salesoutbOrder)
@@ -57,7 +57,7 @@ public class SalesoutbOrderController extends BaseController
     /**
      * 导出销售出库列表
      */
-    @RequiresPermissions("system:order:export")
+    @RequiresPermissions("system:salesoutborder:export")
     @Log(title = "销售出库", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -80,7 +80,7 @@ public class SalesoutbOrderController extends BaseController
     /**
      * 新增保存销售出库
      */
-    @RequiresPermissions("system:order:add")
+    @RequiresPermissions("system:salesoutborder:add")
     @Log(title = "销售出库", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -92,7 +92,7 @@ public class SalesoutbOrderController extends BaseController
     /**
      * 修改销售出库
      */
-    @RequiresPermissions("system:order:edit")
+    @RequiresPermissions("system:salesoutborder:edit")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap mmap)
     {
@@ -104,7 +104,7 @@ public class SalesoutbOrderController extends BaseController
     /**
      * 修改保存销售出库
      */
-    @RequiresPermissions("system:order:edit")
+    @RequiresPermissions("system:salesoutborder:edit")
     @Log(title = "销售出库", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -116,7 +116,7 @@ public class SalesoutbOrderController extends BaseController
     /**
      * 删除销售出库
      */
-    @RequiresPermissions("system:order:remove")
+    @RequiresPermissions("system:salesoutborder:remove")
     @Log(title = "销售出库", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody

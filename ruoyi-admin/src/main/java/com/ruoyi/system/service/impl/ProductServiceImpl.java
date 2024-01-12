@@ -9,10 +9,10 @@ import com.ruoyi.system.service.IProductService;
 import com.ruoyi.common.core.text.Convert;
 
 /**
- * 产品Service业务层处理
+ * 产品信息Service业务层处理
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 @Service
 public class ProductServiceImpl implements IProductService 
@@ -21,10 +21,10 @@ public class ProductServiceImpl implements IProductService
     private ProductMapper productMapper;
 
     /**
-     * 查询产品
+     * 查询产品信息
      * 
-     * @param id 产品主键
-     * @return 产品
+     * @param id 产品信息主键
+     * @return 产品信息
      */
     @Override
     public Product selectProductById(Long id)
@@ -33,10 +33,10 @@ public class ProductServiceImpl implements IProductService
     }
 
     /**
-     * 查询产品列表
+     * 查询产品信息列表
      * 
-     * @param product 产品
-     * @return 产品
+     * @param product 产品信息
+     * @return 产品信息
      */
     @Override
     public List<Product> selectProductList(Product product)
@@ -45,9 +45,9 @@ public class ProductServiceImpl implements IProductService
     }
 
     /**
-     * 新增产品
+     * 新增产品信息
      * 
-     * @param product 产品
+     * @param product 产品信息
      * @return 结果
      */
     @Override
@@ -57,9 +57,9 @@ public class ProductServiceImpl implements IProductService
     }
 
     /**
-     * 修改产品
+     * 修改产品信息
      * 
-     * @param product 产品
+     * @param product 产品信息
      * @return 结果
      */
     @Override
@@ -69,9 +69,9 @@ public class ProductServiceImpl implements IProductService
     }
 
     /**
-     * 批量删除产品
+     * 批量删除产品信息
      * 
-     * @param ids 需要删除的产品主键
+     * @param ids 需要删除的产品信息主键
      * @return 结果
      */
     @Override
@@ -81,9 +81,9 @@ public class ProductServiceImpl implements IProductService
     }
 
     /**
-     * 删除产品信息
+     * 删除产品信息信息
      * 
-     * @param id 产品主键
+     * @param id 产品信息主键
      * @return 结果
      */
     @Override

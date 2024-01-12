@@ -6,8 +6,8 @@ import com.ruoyi.system.domain.Receipt;
 /**
  * 收款单Mapper接口
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-12
  */
 public interface ReceiptMapper 
 {

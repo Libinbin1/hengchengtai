@@ -1,22 +1,21 @@
 package com.ruoyi.system.domain;
 
-import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 产品对象 product
+ * 产品信息对象 product
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 public class Product extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /**  */
     private Long id;
 
     /** 产品名称 */
@@ -35,6 +34,10 @@ public class Product extends BaseEntity
     @Excel(name = "产品分类")
     private String clas;
 
+    /** 所需工序 */
+    @Excel(name = "所需工序")
+    private String prodprocessIds;
+
     /** 单位 */
     @Excel(name = "单位")
     private String unit;
@@ -45,10 +48,10 @@ public class Product extends BaseEntity
 
     /** 销售单价 */
     @Excel(name = "销售单价")
-    private BigDecimal salesPrice;
+    private String salesPrice;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /**  */
+    @Excel(name = "")
     private String json;
 
     public void setId(Long id) 
@@ -96,6 +99,15 @@ public class Product extends BaseEntity
     {
         return clas;
     }
+    public void setProdprocessIds(String prodprocessIds) 
+    {
+        this.prodprocessIds = prodprocessIds;
+    }
+
+    public String getProdprocessIds() 
+    {
+        return prodprocessIds;
+    }
     public void setUnit(String unit) 
     {
         this.unit = unit;
@@ -114,12 +126,12 @@ public class Product extends BaseEntity
     {
         return purchasePrice;
     }
-    public void setSalesPrice(BigDecimal salesPrice) 
+    public void setSalesPrice(String salesPrice) 
     {
         this.salesPrice = salesPrice;
     }
 
-    public BigDecimal getSalesPrice() 
+    public String getSalesPrice() 
     {
         return salesPrice;
     }
@@ -141,6 +153,7 @@ public class Product extends BaseEntity
             .append("prodCode", getProdCode())
             .append("specifications", getSpecifications())
             .append("clas", getClas())
+            .append("prodprocessIds", getProdprocessIds())
             .append("unit", getUnit())
             .append("remark", getRemark())
             .append("purchasePrice", getPurchasePrice())

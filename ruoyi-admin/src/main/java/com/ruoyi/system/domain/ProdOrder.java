@@ -41,7 +41,7 @@ public class ProdOrder extends BaseEntity
     private Long prodprodId;
 
     /** 生产开始日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "生产开始日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date prodstartDate;
 

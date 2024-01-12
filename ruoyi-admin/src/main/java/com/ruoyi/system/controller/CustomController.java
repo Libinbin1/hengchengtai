@@ -124,4 +124,21 @@ public class CustomController extends BaseController
     {
         return toAjax(customService.deleteCustomByIds(ids));
     }
+
+    /**
+     * 欠款审批
+     */
+    @RequiresPermissions("system:custom:Approval")
+    @PostMapping( "/Approval")
+    @ResponseBody
+    public AjaxResult Approval(String id,String arrApproval)
+    {
+        int approval = customService.toApproval(id, arrApproval);
+        if(approval!=0){
+            return success();
+        }else {
+            return error("更改失败,请联系管理员");
+        }
+
+    }
 }

@@ -11,13 +11,13 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 其他出库对象 other_outb
  * 
  * @author bin
- * @date 2024-01-04
+ * @date 2024-01-11
  */
 public class OtherOutb extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /**  */
     private Long id;
 
     /** 出库单号 */
@@ -57,8 +57,8 @@ public class OtherOutb extends BaseEntity
     @Excel(name = "出库仓库")
     private String outbWare;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /**  */
+    @Excel(name = "")
     private String json;
 
     public void setId(Long id) 

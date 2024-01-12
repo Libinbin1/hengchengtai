@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="prodCode"    column="prod_code"    />
         <result property="specifications"    column="specifications"    />
         <result property="clas"    column="clas"    />
+        <result property="prodprocessIds"    column="prodprocess_ids"    />
         <result property="unit"    column="unit"    />
         <result property="remark"    column="remark"    />
         <result property="purchasePrice"    column="purchase_price"    />
@@ -18,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProductVo">
-        select id, productname, prod_code, specifications, clas, unit, remark, purchase_price, sales_price, json from product
+        select id, productname, prod_code, specifications, clas, prodprocess_ids, unit, remark, purchase_price, sales_price, json from product
     </sql>
 
     <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
@@ -28,9 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="prodCode != null  and prodCode != ''"> and prod_code = #{prodCode}</if>
             <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
             <if test="clas != null  and clas != ''"> and clas = #{clas}</if>
+            <if test="prodprocessIds != null  and prodprocessIds != ''"> and prodprocess_ids = #{prodprocessIds}</if>
             <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
             <if test="purchasePrice != null  and purchasePrice != ''"> and purchase_price = #{purchasePrice}</if>
-            <if test="salesPrice != null "> and sales_price = #{salesPrice}</if>
+            <if test="salesPrice != null  and salesPrice != ''"> and sales_price = #{salesPrice}</if>
             <if test="json != null  and json != ''"> and json = #{json}</if>
         </where>
     </select>
@@ -40,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertProduct" parameterType="Product">
         insert into product
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -48,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="prodCode != null">prod_code,</if>
             <if test="specifications != null">specifications,</if>
             <if test="clas != null">clas,</if>
+            <if test="prodprocessIds != null">prodprocess_ids,</if>
             <if test="unit != null">unit,</if>
             <if test="remark != null">remark,</if>
             <if test="purchasePrice != null">purchase_price,</if>
@@ -60,6 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="prodCode != null">#{prodCode},</if>
             <if test="specifications != null">#{specifications},</if>
             <if test="clas != null">#{clas},</if>
+            <if test="prodprocessIds != null">#{prodprocessIds},</if>
             <if test="unit != null">#{unit},</if>
             <if test="remark != null">#{remark},</if>
             <if test="purchasePrice != null">#{purchasePrice},</if>
@@ -75,6 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="prodCode != null">prod_code = #{prodCode},</if>
             <if test="specifications != null">specifications = #{specifications},</if>
             <if test="clas != null">clas = #{clas},</if>
+            <if test="prodprocessIds != null">prodprocess_ids = #{prodprocessIds},</if>
             <if test="unit != null">unit = #{unit},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>

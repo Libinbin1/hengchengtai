@@ -37,7 +37,7 @@ import com.ruoyi.system.service.ISysUserService;
  * 
  * @author bin
  */
-@Service
+@Service("SysUser")
 public class SysUserServiceImpl implements ISysUserService
 {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
@@ -550,5 +550,18 @@ public class SysUserServiceImpl implements ISysUserService
     public int changeStatus(SysUser user)
     {
         return userMapper.updateUser(user);
+    }
+
+    /**
+     * 根据角色查询用户
+     *
+     * @param id 角色信息
+     * @return 结果
+     */
+    @Override
+    public List<SysUser> selectUserByRole(String id) {
+        SysRole sysRole = new SysRole();
+        sysRole.setRoleId(Long.valueOf(id));
+        return userMapper.selectUserByRole(sysRole);
     }
 }

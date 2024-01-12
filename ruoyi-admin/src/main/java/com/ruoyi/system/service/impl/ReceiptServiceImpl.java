@@ -11,8 +11,8 @@ import com.ruoyi.common.core.text.Convert;
 /**
  * 收款单Service业务层处理
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-12
  */
 @Service
 public class ReceiptServiceImpl implements IReceiptService 

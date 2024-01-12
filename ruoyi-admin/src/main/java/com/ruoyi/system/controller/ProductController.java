@@ -20,10 +20,10 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
- * 产品Controller
+ * 产品信息Controller
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 @Controller
 @RequestMapping("/system/product")
@@ -42,7 +42,7 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 查询产品列表
+     * 查询产品信息列表
      */
     @RequiresPermissions("system:product:list")
     @PostMapping("/list")
@@ -55,21 +55,21 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 导出产品列表
+     * 导出产品信息列表
      */
     @RequiresPermissions("system:product:export")
-    @Log(title = "产品", businessType = BusinessType.EXPORT)
+    @Log(title = "产品信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Product product)
     {
         List<Product> list = productService.selectProductList(product);
         ExcelUtil<Product> util = new ExcelUtil<Product>(Product.class);
-        return util.exportExcel(list, "产品数据");
+        return util.exportExcel(list, "产品信息数据");
     }
 
     /**
-     * 新增产品
+     * 新增产品信息
      */
     @GetMapping("/add")
     public String add()
@@ -78,10 +78,10 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 新增保存产品
+     * 新增保存产品信息
      */
     @RequiresPermissions("system:product:add")
-    @Log(title = "产品", businessType = BusinessType.INSERT)
+    @Log(title = "产品信息", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Product product)
@@ -90,7 +90,7 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 修改产品
+     * 修改产品信息
      */
     @RequiresPermissions("system:product:edit")
     @GetMapping("/edit/{id}")
@@ -102,10 +102,10 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 修改保存产品
+     * 修改保存产品信息
      */
     @RequiresPermissions("system:product:edit")
-    @Log(title = "产品", businessType = BusinessType.UPDATE)
+    @Log(title = "产品信息", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(Product product)
@@ -114,10 +114,10 @@ public class ProductController extends BaseController
     }
 
     /**
-     * 删除产品
+     * 删除产品信息
      */
     @RequiresPermissions("system:product:remove")
-    @Log(title = "产品", businessType = BusinessType.DELETE)
+    @Log(title = "产品信息", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody
     public AjaxResult remove(String ids)

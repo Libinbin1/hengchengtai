@@ -154,7 +154,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectUserVo"/>
 		where u.user_id = #{userId}
 	</select>
-	
+
+	<select id="selectUserByRole" parameterType="SysRole" resultMap="SysUserResult">
+		select distinct u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.status, u.create_time
+		from sys_role r
+				 left join sys_user_role ur on r.role_id = ur.role_id
+				 left join sys_user u on u.user_id = ur.user_id
+		where u.del_flag = '0'
+		<if test="roleId != null and roleId != 0">
+			AND r.role_id = #{roleId}
+		</if>
+		<if test="roleName != null and roleName != ''">
+			AND r.role_name like concat('%', #{roleName}, '%')
+		</if>
+		<if test="status != null and status != ''">
+			AND r.status = #{status}
+		</if>
+		<if test="roleKey != null and roleKey != ''">
+			AND r.role_key like concat('%', #{roleKey}, '%')
+		</if>
+		<if test="dataScope != null and dataScope != ''">
+			AND r.data_scope = #{dataScope}
+		</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
+	</select>
+
 	<delete id="deleteUserById" parameterType="Long">
  		update sys_user set del_flag = '2' where user_id = #{userId}
  	</delete>

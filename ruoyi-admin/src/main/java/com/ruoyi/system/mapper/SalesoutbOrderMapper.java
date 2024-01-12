@@ -6,8 +6,8 @@ import com.ruoyi.system.domain.SalesoutbOrder;
 /**
  * 销售出库Mapper接口
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 public interface SalesoutbOrderMapper 
 {

@@ -10,14 +10,14 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 收款单对象 receipt
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-12
  */
 public class Receipt extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /**  */
     private Long id;
 
     /** 收款单号 */
@@ -65,8 +65,8 @@ public class Receipt extends BaseEntity
     @Excel(name = "本次收款金额")
     private String receamouThistime;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /**  */
+    @Excel(name = "")
     private String json;
 
     public void setId(Long id) 

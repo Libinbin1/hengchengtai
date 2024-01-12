@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('其他出库列表')" />
+    <th:block th:include="include :: header('其他入库列表')" />
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -91,7 +91,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
-                modalName: "其他出库",
+                modalName: "其他入库",
                 columns: [{
                     checkbox: true
                 },

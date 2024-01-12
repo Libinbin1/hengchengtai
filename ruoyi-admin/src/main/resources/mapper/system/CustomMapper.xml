@@ -21,11 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="bankAcco"    column="bank_acco"    />
         <result property="address"    column="address"    />
         <result property="tel"    column="tel"    />
+        <result property="arrApproval"    column="arr_approval"    />
         <result property="json"    column="json"    />
     </resultMap>
 
     <sql id="selectCustomVo">
-        select id, custname, code, acco_mana, remark, addr, cust_clas, contactname, duties, contact_info, orgname, taxp_idennum, bank_ofdepo, bank_acco, address, tel, json from custom
+        select id, custname, code, acco_mana, remark, addr, cust_clas, contactname, duties, contact_info, orgname, taxp_idennum, bank_ofdepo, bank_acco, address, tel, arr_approval,json from custom
     </sql>
 
     <select id="selectCustomList" parameterType="Custom" resultMap="CustomResult">
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="code != null  and code != ''"> and code = #{code}</if>
             <if test="accoMana != null  and accoMana != ''"> and acco_mana = #{accoMana}</if>
             <if test="addr != null  and addr != ''"> and addr = #{addr}</if>
-            <if test="custClas != null  and custClas != ''"> and cust_clas = #{custClas}</if>
+            <if test="custClas != null  and custClas != ''and custClas !=0"> and cust_clas = #{custClas}</if>
             <if test="contactname != null  and contactname != ''"> and contactname like concat('%', #{contactname}, '%')</if>
             <if test="duties != null  and duties != ''"> and duties = #{duties}</if>
             <if test="contactInfo != null  and contactInfo != ''"> and contact_info = #{contactInfo}</if>
@@ -45,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankAcco != null  and bankAcco != ''"> and bank_acco = #{bankAcco}</if>
             <if test="address != null  and address != ''"> and address = #{address}</if>
             <if test="tel != null  and tel != ''"> and tel = #{tel}</if>
+            <if test="arrApproval != null  and arrApproval != ''"> and arr_approval = #{arrApproval}</if>
             <if test="json != null  and json != ''"> and json = #{json}</if>
         </where>
     </select>
@@ -72,6 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankAcco != null">bank_acco,</if>
             <if test="address != null">address,</if>
             <if test="tel != null">tel,</if>
+            <if test="arrApproval != null">arr_approval,</if>
             <if test="json != null">json,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -90,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankAcco != null">#{bankAcco},</if>
             <if test="address != null">#{address},</if>
             <if test="tel != null">#{tel},</if>
+            <if test="arrApproval != arrApproval">#{arrApproval},</if>
             <if test="json != null">#{json},</if>
          </trim>
     </insert>
@@ -112,6 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankAcco != null">bank_acco = #{bankAcco},</if>
             <if test="address != null">address = #{address},</if>
             <if test="tel != null">tel = #{tel},</if>
+            <if test="arrApproval != null">arr_approval = #{arrApproval},</if>
             <if test="json != null">json = #{json},</if>
         </trim>
         where id = #{id}

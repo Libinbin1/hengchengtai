@@ -14,7 +14,7 @@ import com.ruoyi.common.core.text.Convert;
  * @author ruoyi
  * @date 2024-01-04
  */
-@Service
+@Service("custom")
 public class CustomServiceImpl implements ICustomService 
 {
     @Autowired
@@ -90,5 +90,28 @@ public class CustomServiceImpl implements ICustomService
     public int deleteCustomById(Long id)
     {
         return customMapper.deleteCustomById(id);
+    }
+
+    @Override
+    public int toApproval(String id,String arrApproval) {
+
+        Custom custom = new Custom();
+        custom.setId(Long.valueOf(id));
+        custom.setArrApproval(arrApproval);
+
+
+        return customMapper.updateCustom(custom);
+    }
+
+    /**
+     * 查询所有客户列表
+     *
+     * @return 客户
+     */
+    @Override
+    public List<Custom> selectCustomAllList()
+    {
+        Custom custom = new Custom();
+        return customMapper.selectCustomList(custom);
     }
 }

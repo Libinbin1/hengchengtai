@@ -8,14 +8,14 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 销售出库对象 salesoutb_order
  * 
- * @author ruoyi
- * @date 2024-01-04
+ * @author bin
+ * @date 2024-01-11
  */
 public class SalesoutbOrder extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /**  */
     private Long id;
 
     /** 出库单号 */
@@ -70,8 +70,8 @@ public class SalesoutbOrder extends BaseEntity
     @Excel(name = "库存校验")
     private String stockCheck;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /**  */
+    @Excel(name = "")
     private String json;
 
     public void setId(Long id) 

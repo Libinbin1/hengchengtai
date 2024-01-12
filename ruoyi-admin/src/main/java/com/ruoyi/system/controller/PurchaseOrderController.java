@@ -38,7 +38,7 @@ public class PurchaseOrderController extends BaseController
     @GetMapping()
     public String order()
     {
-        return prefix + "/order";
+        return prefix + "/purchaseorder";
     }
 
     /**

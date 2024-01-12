@@ -1,7 +1,5 @@
 package com.ruoyi.system.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
@@ -74,11 +72,24 @@ public class Custom extends BaseEntity
     @Excel(name = "开票电话")
     private String tel;
 
+    /** 欠费审批 */
+    @Excel(name = "欠费审批")
+    private String arrApproval;
+
+
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String json;
 
-    public void setId(Long id) 
+    public String getArrApproval() {
+        return arrApproval;
+    }
+
+    public void setArrApproval(String arrApproval) {
+        this.arrApproval = arrApproval;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -225,24 +236,24 @@ public class Custom extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("custname", getCustname())
-            .append("code", getCode())
-            .append("accoMana", getAccoMana())
-            .append("remark", getRemark())
-            .append("add", getAddr())
-            .append("custClas", getCustClas())
-            .append("contactname", getContactname())
-            .append("duties", getDuties())
-            .append("contactInfo", getContactInfo())
-            .append("orgname", getOrgname())
-            .append("taxpIdennum", getTaxpIdennum())
-            .append("bankOfdepo", getBankOfdepo())
-            .append("bankAcco", getBankAcco())
-            .append("address", getAddress())
-            .append("tel", getTel())
-            .append("json", getJson())
-            .toString();
+        return "Custom{" +
+                "id=" + id +
+                ", custname='" + custname + '\'' +
+                ", code='" + code + '\'' +
+                ", accoMana='" + accoMana + '\'' +
+                ", addr='" + addr + '\'' +
+                ", custClas='" + custClas + '\'' +
+                ", contactname='" + contactname + '\'' +
+                ", duties='" + duties + '\'' +
+                ", contactInfo='" + contactInfo + '\'' +
+                ", orgname='" + orgname + '\'' +
+                ", taxpIdennum='" + taxpIdennum + '\'' +
+                ", bankOfdepo='" + bankOfdepo + '\'' +
+                ", bankAcco='" + bankAcco + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                ", arrApproval='" + arrApproval + '\'' +
+                ", json='" + json + '\'' +
+                '}';
     }
 }
